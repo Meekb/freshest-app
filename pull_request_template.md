@@ -1,4 +1,4 @@
-### Expected Behavior (User Stories)
+### Acceptance Criteria
 
 
 ### Issues Resolved
