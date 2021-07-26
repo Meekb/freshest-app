@@ -15,14 +15,13 @@ interface ApiMarkets {
   }[]
 }
 
-// Written with hooks below:
 const Home = ():JSX.Element => {
   const [ allMarkets, setMarkets ] = useState<ApiMarkets["markets"]>([])
   const [ marketDetails, setDetails ] = useState<ApiMarkets["marketDetails"]>([])
   const [ error, setError ] = useState('')
   
   const getMarkets = async () => {
-    const url = ''
+    const url = 'http://search.ams.usda.gov/farmersmarkets/v1/data.svc/zipSearch?zip=01070'
     setError('')
 
     try {
@@ -41,39 +40,11 @@ const Home = ():JSX.Element => {
   return (
     <div className="home">
       <h2>yellow</h2>
+      
       {/* <Search allMarkets={allMarkets} marketDetails={marketDetails}/> */}
       {/* <Results allMarkets={allMarkets} marketDetails={marketDetails}/> */}
     </div>
   )
 }
-
-
-//written as a class component without hooks below
-// class Home extends React.Component<ApiMarkets>{
-//   state = {
-//     markets: [
-//         {
-//           id: 99,
-//           marketName: "Friends"}
-//         ],
-//     marketDetails: [
-//       {
-//         googlink: "string",
-//         address: "234 marion",
-//         schedule: "tuesday",
-//         products: "egg, brownies"
-//       }
-//     ]
-//   }
-
-//   render() {
-//     return (
-//       <div>
-//         <h1>yellow</h1>
-//       </div>
-//     )
-//   }
-// }
-
 
 export default Home;
