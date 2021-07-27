@@ -47,3 +47,12 @@ export const cleanDetailsData = (arrayOfPromises: { marketdetails: {
     }
   })
 };
+
+
+export const checkForError = (response: Response) => {
+  if (!response.ok) {
+    throw new Error(response.statusText);
+  } else {
+    return response
+  }
+};

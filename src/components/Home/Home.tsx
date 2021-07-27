@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { fetchGetResponse } from '../../utils/apiCalls'
-import { cleanMarketsData, cleanDetailsData } from '../../utils/utils'
+import { cleanMarketsData, cleanDetailsData, checkForError } from '../../utils/utils'
 
 interface ApiMarkets {
   markets: {
@@ -56,12 +56,6 @@ const Home = ():JSX.Element => {
     .then(arrayOfPromises => cleanDetailsData(arrayOfPromises))
     .then(cleanData => setDetails(cleanData))
     .catch(error => setError(error))
-  }
-
-  const checkForError = (response: Response) => {
-    if (!response.ok) {
-      throw new Error(response.statusText);
-    }
   }
 
   useEffect(() => {
