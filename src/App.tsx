@@ -8,7 +8,6 @@ export const App: React.FC<AppProps> = ({}) => {
     <main>
       <h1>Hi</h1>
       <Home />
-      <Search />
     </main>
   );
 };

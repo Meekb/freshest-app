@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { fetchGetResponse } from '../../utils/apiCalls'
 import { cleanMarketsData, cleanDetailsData, checkForError } from '../../utils/utils'
+import Search from '../Search/Search'
 
 interface ApiMarkets {
   markets: {
@@ -28,9 +29,10 @@ const Home = ():JSX.Element => {
   const [ marketDetails, setDetails ] = useState<ApiMarkets["marketDetails"]>([])
   const [ error, setError ] = useState(0)
 
-  const getMarkets = async () => {
+   const getMarkets = async (zip: string) => {
+     console.log(zip)
     try {
-      let response = await fetchGetResponse('zipSearch?zip=01701');
+      let response = await fetchGetResponse(`zipSearch?zip=${zip}`);
       checkForError(response)
       let data = await response.json();
       let cleanedData = cleanMarketsData(data.results)
@@ -51,15 +53,11 @@ const Home = ():JSX.Element => {
     .then(cleanData => setDetails(cleanData))
     .catch(error => setError(error))
   }
-
-  useEffect(() => {
-    getMarkets()
-  }, [])
   
   return (
     <div className="home">
       <h2>yellow</h2>
-      
+      <Search getMarkets={getMarkets} />
       {/* <Search allMarkets={allMarkets} marketDetails={marketDetails}/> */}
       {/* <Results allMarkets={allMarkets} marketDetails={marketDetails}/> */}
     </div>

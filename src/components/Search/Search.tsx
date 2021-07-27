@@ -1,42 +1,38 @@
 import React, { useState } from 'react';
 import './Search.css';
 
-const Search = () => {
+interface getMarkets {
+  getMarkets: (zip: string) => Promise<void>,
+}
+
+const Search: React.FC<getMarkets> = ({getMarkets}) => {
 
   const [zip, setZip] = useState('')
+  console.log(zip);
 
   const submitZipSearch = (event: React.MouseEvent<HTMLButtonElement>) => {
+    // if zip.length  > 5 we need to give the user an error
     event.preventDefault();
-    console.log(zip);
+    getMarkets(zip);
     clearInput();
-  }
+  } 
 
   const clearInput = () => {
     setZip('');
   }
 
-    console.log(zip)
-
   return (
     <form>
       <label className='zip-label'>Enter your zip code: </label>
       <input 
-        type='text' //can limit input with type text, but not number
+        type='number' 
         name='zip'
         placeholder='zip...'
-        // onChange={e => }
+        onChange={e => setZip(e.target.value)}
         min='00001'
         max='99999'
-        maxLength={5} // if using 'text' we will need to add logic to convert to a number and check validity
         required
       />
-      <label className='miles-label'>Find markets within:
-      <select name='miles' className='dropdown'>
-        <option value='10mi'>10mi</option>
-        <option value='25mi'>25mi</option>
-        <option value='50mi'>50mi</option>
-      </select>
-      </label>
       <button 
         className='find-btn' 
         onClick={submitZipSearch}
