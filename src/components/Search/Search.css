@@ -1,0 +1,13 @@
+form {  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+label {
+  margin-right: 5px;
+}
+
+.find-btn {
+  margin-left: 20px;
+}
