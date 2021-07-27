@@ -40,7 +40,17 @@ const Home = ():JSX.Element => {
   const getDetails = (filteredMarkets: ApiMarkets["markets"]) => {
     let promises = Promise.all(filteredMarkets.map(currentMarket => {
       return fetchGetResponse(`mktDetail?id=${currentMarket.id}`)
+      .then((response) => {
+        if (!response.ok) {
+          throw Error(response.statusText);
+        } else {
+          return response
+        }
+      })
+      .then(response => response.json())
     }))
+    .then(promiseArray => console.log(promiseArray))
+    .catch(error => console.log(error))
     
   }
 
