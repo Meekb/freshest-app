@@ -1,21 +1,25 @@
 import React, { useState, useEffect } from 'react'
 import { fetchGetResponse } from '../../utils/apiCalls'
-import { cleanMarketsData } from '../../utils/utils'
-
+import { cleanMarketsData, cleanDetailsData } from '../../utils/utils'
 
 interface ApiMarkets {
   markets: {
     id: number,
     distanceFromZip: number,
     marketName: string
-    //need logic to split the distance from the name to display the name
   }[],
   marketDetails: {
-    googlink: string,
-    address: string,
-    schedule: string,
-    products: string
-    // need logic for splitting products string into an array
+    street: string,
+    city: string,
+    state: string,
+    zip: string,
+    schedule: {
+      dayOfWeek: string,
+      time: string,
+      season: string
+    }[],
+    products: string[],
+    mapsLink: string
   }[]
 }
 
@@ -33,12 +37,12 @@ const Home = ():JSX.Element => {
       setMarkets(cleanedData)
       getDetails(cleanedData)
     } catch (error) {
-      setError(error.message)
+      setError(error)
     }
   }
 
   const getDetails = (filteredMarkets: ApiMarkets["markets"]) => {
-    let promises = Promise.all(filteredMarkets.map(currentMarket => {
+    Promise.all(filteredMarkets.map(currentMarket => {
       return fetchGetResponse(`mktDetail?id=${currentMarket.id}`)
       .then((response) => {
         if (!response.ok) {
@@ -49,14 +53,14 @@ const Home = ():JSX.Element => {
       })
       .then(response => response.json())
     }))
-    .then(promiseArray => console.log(promiseArray))
-    .catch(error => console.log(error))
-    
+    .then(arrayOfPromises => cleanDetailsData(arrayOfPromises))
+    .then(cleanData => setDetails(cleanData))
+    .catch(error => setError(error))
   }
 
   const checkForError = (response: Response) => {
     if (!response.ok) {
-      // throw new Error(response);
+      throw new Error(response.statusText);
     }
   }
 
