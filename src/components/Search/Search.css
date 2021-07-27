@@ -1,0 +1,23 @@
+form {  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.zip-label {
+  margin-right: 20px;
+}
+
+.miles-label {
+  margin-left: 45px;
+}
+
+.dropdown {
+  margin-left: 20px;
+}
+
+.find-btn {
+  margin-left: 45px;
+}
+
+
