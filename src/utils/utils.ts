@@ -13,9 +13,10 @@ export const cleanMarketsData = (response: {id: string, marketname: any}[]) => {
   return mapped.filter(currentMarket => currentMarket.distanceFromZip < 10)
 };
 
-export const cleanDetailsData = (arrayOfPromises: {}[]) => {
+export const cleanDetailsData = (arrayOfPromises: { marketdetails: {
+  GoogleLink: string, Address: string, Schedule: string, Products: string } }[]) => {
   return arrayOfPromises.map(currentMarket => {
-    let addressArray = currentMarket.marketdetails.Address.split(',')
+    let addressArray = currentMarket.marketdetails.Address.split(', ')
 
     let schedule = currentMarket.marketdetails.Schedule.replaceAll('<br>', '').split(';')
     schedule.pop()
