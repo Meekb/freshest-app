@@ -12,3 +12,18 @@ export const cleanMarketsData = (response: {id: string, marketname: any}[]) => {
 
   return mapped.filter(currentMarket => currentMarket.distanceFromZip < 10)
 };
+
+export const cleanDetailsData = (arrayOfPromises: {}[]) => {
+  return arrayOfPromises.map(currentMarket => {
+    let addressArray = currentMarket.marketdetails.Address.split(',')
+
+    return {
+      street: addressArray[0],
+      city: addressArray[addressArray.length-3],
+      state: addressArray[addressArray.length-2],
+      zip: addressArray[addressArray.length-1],
+      products: currentMarket.marketdetails.Products.split(';'),
+      mapsLink: currentMarket.marketdetails.GoogleLink
+    }
+  })
+};
