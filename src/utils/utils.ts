@@ -9,4 +9,6 @@ export const cleanMarketsData = (response: {id: string, marketname: any}[]) => {
       marketName: name.slice(1).join(' ')
     }
   })
+
+  return mapped.filter(currentMarket => currentMarket.distanceFromZip < 10)
 };
