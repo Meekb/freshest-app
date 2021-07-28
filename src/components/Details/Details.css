@@ -1,0 +1,7 @@
+.market-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #14b37e;
+}

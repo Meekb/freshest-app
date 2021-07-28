@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { fetchGetResponse } from '../../utils/apiCalls'
 import { cleanMarketsData, cleanDetailsData, checkForError } from '../../utils/utils'
 import Search from '../Search/Search'
+import Details from '../Details/Details'
 
 interface ApiMarkets {
   markets: {
@@ -60,6 +61,7 @@ const Home = ():JSX.Element => {
       <Search getMarkets={getMarkets} />
       {/* <Search allMarkets={allMarkets} marketDetails={marketDetails}/> */}
       {/* <Results allMarkets={allMarkets} marketDetails={marketDetails}/> */}
+      <Details />
     </div>
   )
 }
