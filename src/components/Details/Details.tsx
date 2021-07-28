@@ -3,8 +3,8 @@ import "../Details/Details.css"
 
 interface MarketProps {
   markets: {
-    id: number,
-    distanceFromZip: number,
+    id: number;
+    distanceFromZip: number;
     marketName: string
   }[],
   marketDetails: {
@@ -26,7 +26,7 @@ const Details: React.FC<MarketProps> = ({ markets, marketDetails }) => {
 
   return (
     <section className='market-details'>
-      <h1>{markets.marketName}</h1>
+      <h1>{markets[2]}</h1>
       <p>Address</p>
       <p>Schedule</p>
       <div className='products'>
