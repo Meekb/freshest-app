@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import './Search.css';
 
 interface getMarkets {
-  getMarkets: (zip: string) => Promise<void>;
+  getMarkets: (zip: string, distance: number) => Promise<void>;
 }
 
 export const Search: React.FC<getMarkets> = ({ getMarkets }) => {
@@ -26,6 +26,7 @@ export const Search: React.FC<getMarkets> = ({ getMarkets }) => {
     e.preventDefault();
     getMarkets(zip);
     setZip('');
+    setDistance(0);
   };
 
   return (
@@ -40,13 +41,19 @@ export const Search: React.FC<getMarkets> = ({ getMarkets }) => {
         value={zip}
         onChange={e => setZip(e.target.value)}
       />
+      <label htmlFor="distance">Choose Distance:</label>
+      <select name="distance">
+        <option></option>
+        <option value="15">15</option>
+        <option>20</option>
+        <option>50</option>
+      </select>
       <button
         type='submit'
         className='find-btn'
         onClick={e => onSubmitSearch(e)}
         disabled={!isValid}
-      >
-        Find Markets
+      >Find Markets
       </button>
     </form>
   );
