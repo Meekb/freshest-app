@@ -23,12 +23,14 @@ export const Search: React.FC<getMarkets> = ({ getMarkets }) => {
   };
 
   return (
-    <form>
-      <label className='zip-label'>Enter your zip code: </label>
+    <form className='zip-search'>
+      <label className='zip-label'>
+        Enter your zip code to find markets near you:{' '}
+      </label>
       <input
         type='number'
         name='zip'
-        placeholder='zip...'
+        placeholder='Zip Code'
         value={zip}
         onChange={e => setZip(e.target.value)}
         min='00001'

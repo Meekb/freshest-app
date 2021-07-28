@@ -14,7 +14,7 @@ export const App: React.FC = () => {
         <h1>Freshly Fetched</h1>
       </header>
       <Switch>
-        <Route exact path='/' render={() => <Home />} />
+        <Route exact path='/' component={Home} />
         {/* <Route exact path='/markets' render={() => <Results />} /> */}
         {/* <Route
           exact

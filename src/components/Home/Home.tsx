@@ -6,6 +6,7 @@ import {
   checkForError
 } from '../../utils/utils';
 import { Search } from '../Search/Search';
+import './Home.css';
 
 interface ApiMarkets {
   markets: {
@@ -62,8 +63,6 @@ export const Home = (): JSX.Element => {
   return (
     <div className='home'>
       <Search getMarkets={getMarkets} />
-      {/* <Search allMarkets={allMarkets} marketDetails={marketDetails}/> */}
-      {/* <Results allMarkets={allMarkets} marketDetails={marketDetails}/> */}
     </div>
   );
 };
