@@ -42,11 +42,12 @@ export const Search: React.FC<getMarkets> = ({ getMarkets }) => {
         onChange={e => setZip(e.target.value)}
       />
       <label htmlFor="distance">Choose Distance:</label>
-      <select name="distance">
-        <option></option>
-        <option value="15">15</option>
-        <option>20</option>
-        <option>50</option>
+      <select id="distance" name="distance" onChange={(e) => setDistance(Number(e.target.value))}>
+        {/* setDistance(Number(e.target.value)) */}
+        <option value={0}></option>
+        <option value={15}>15 miles</option>
+        <option value={20}>20 miles</option>
+        <option value={50}>50 miles</option>
       </select>
       <button
         type='submit'
