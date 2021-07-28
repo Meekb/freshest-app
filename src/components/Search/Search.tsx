@@ -14,7 +14,6 @@ const Search: React.FC<getMarkets> = ({getMarkets}) => {
     zip = zip.replace(/[^0-9]/g, '');
     zip = zip.substring(0, 5);
     setZip(zip);
-    console.log(zip);
     getMarkets(zip);
     clearInput();
   } 
