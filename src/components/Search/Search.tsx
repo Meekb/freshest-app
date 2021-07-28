@@ -1,5 +1,6 @@
 import { listeners } from 'process';
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import './Search.css';
 
 interface getMarkets {
@@ -37,9 +38,9 @@ export const Search: React.FC<getMarkets> = ({ getMarkets }) => {
         max='99999'
         required
       />
-      <button className='find-btn' onClick={submitZipSearch}>
+      <Link to='/markets' className='find-btn' onClick={submitZipSearch}>
         Find Markets
-      </button>
+      </Link>
     </form>
   );
 };

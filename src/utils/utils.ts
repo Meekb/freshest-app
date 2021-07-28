@@ -11,7 +11,7 @@ export const cleanMarketsData = (
     };
   });
 
-  return mapped.filter(currentMarket => currentMarket.distanceFromZip < 10);
+  return mapped.filter(currentMarket => currentMarket.distanceFromZip < 50);
 };
 
 export const cleanDetailsData = (

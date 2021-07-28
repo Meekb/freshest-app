@@ -28,6 +28,8 @@
   background-color: #fff9e9;
   border: 2px solid #ee922f;
   border-radius: 3em;
+  text-decoration: none;
+  color: black;
 }
 
 .find-btn:hover {
