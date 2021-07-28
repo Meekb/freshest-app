@@ -7,7 +7,7 @@ import {
   checkForError
 } from './utils/utils';
 import { Results } from './components/Results/Results';
-import { Details } from './components/Details/Details';
+import Details from './components/Details/Details';
 import { Error } from './components/Error/Error';
 import { Search } from './components/Search/Search';
 import './App.css';
@@ -91,11 +91,11 @@ export const App: React.FC = () => {
             />
           )}
         />
-        {/* <Route
+        <Route
           exact
           path='/markets/:id'
-          render={({ match }) => <Details id={parseInt(match.params.id)} />}
-        /> */}
+          render={({ match }) => <Details />}
+        />
         {/* <Route
           render={() => (
             <Error error="Sorry that page doesn't exist, do you want to go home?" />
