@@ -1,5 +1,6 @@
 import React from 'react';
 import './Card.css';
+import { Link } from 'react-router-dom';
 
 interface CardProps {
   id: number;
@@ -9,9 +10,11 @@ interface CardProps {
 
 export const Card: React.FC<CardProps> = ({ id, name, distance }) => {
   return (
-    <button className='market-card'>
-      <p>{name}</p>
-      <p>{distance}</p>
-    </button>
+    <Link to={`/markets/${id}`}>
+      <article className='market-card' id={id.toString()}>
+        <p>{name}</p>
+        <p>{distance}</p>
+      </article>
+    </Link>
   );
 };
