@@ -10,8 +10,7 @@ interface getMarkets {
 export const Search: React.FC<getMarkets> = ({ getMarkets }) => {
   let [zip, setZip] = useState('');
 
-  const submitZipSearch = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
+  const submitZipSearch = () => {
     zip = zip.replace(/[^0-9]/g, '');
     zip = zip.substring(0, 5);
     setZip(zip);

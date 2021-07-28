@@ -64,10 +64,6 @@ export const checkForError = (response: Response) => {
   if (!response.ok) {
     throw new Error(response.statusText);
   } else {
-<<<<<<< HEAD
-    return response
-=======
     return response;
->>>>>>> a54753d (Import fonts, add some minimal css reset, clean up console logs, exports etc)
   }
 };
