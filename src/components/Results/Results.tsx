@@ -1,3 +1,7 @@
-import React from "react";
+import React from 'react';
 
-export {}
+interface ResultsProps {}
+
+export const Results: React.FC<ResultsProps> = ({}) => {
+  return <></>;
+};

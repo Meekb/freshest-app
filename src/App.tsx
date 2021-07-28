@@ -1,11 +1,14 @@
 import React from 'react';
-import Home from  "./components/Home/Home"
-interface AppProps {}
 
-export const App: React.FC<AppProps> = ({}) => {
+import { Home } from './components/Home/Home';
+import './App.css';
+
+export const App: React.FC = () => {
   return (
     <main>
-      <h1>Hi</h1>
+      <header>
+        <h1>Freshly Fetched</h1>
+      </header>
       <Home />
     </main>
   );
