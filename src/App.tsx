@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Route, Switch } from 'react-router';
+import { Route, Switch, useHistory } from 'react-router';
 import { getData } from './utils/apiCalls';
 import {
   cleanMarketsData,
@@ -39,6 +39,7 @@ export const App: React.FC = () => {
   const [marketDetails, setDetails] = useState<ApiMarkets['marketDetails']>([]);
   const [zip, setZip] = useState<ApiMarkets['zip']>('');
   const [error, setError] = useState(0);
+  const history = useHistory();
 
   const getMarkets = async (zip: string) => {
     setZip(zip);
@@ -48,7 +49,8 @@ export const App: React.FC = () => {
       let data = await response.json();
       let cleanedData = cleanMarketsData(data.results);
       setMarkets(cleanedData);
-      getDetails(cleanedData);
+      await getDetails(cleanedData);
+      history.push('/markets');
     } catch (error) {
       setError(error);
     }

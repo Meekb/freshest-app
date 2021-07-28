@@ -43,7 +43,7 @@ export const Results: React.FC<ResultsProps> = ({
 
   return (
     <>
-      <h2>Results near {zip}</h2>
+      <h2 className='results-near'>Results near {zip}</h2>
       <div className='results-container'>{makeCards()}</div>
     </>
   );
