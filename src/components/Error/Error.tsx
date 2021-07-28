@@ -1,3 +1,7 @@
-import React from "react";
+import React from 'react';
 
-export {}
+interface ErrorProps {}
+
+export const Error: React.FC<ErrorProps> = ({}) => {
+  return <></>;
+};

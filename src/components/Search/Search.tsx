@@ -1,45 +1,44 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import './Search.css';
 
 interface getMarkets {
-  getMarkets: (zip: string) => Promise<void>,
+  getMarkets: (zip: string) => Promise<void>;
 }
 
-const Search: React.FC<getMarkets> = ({getMarkets}) => {
+export const Search: React.FC<getMarkets> = ({ getMarkets }) => {
+  let [zip, setZip] = useState('');
 
-  let [zip, setZip] = useState('')
-
-  const submitZipSearch = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
+  const submitZipSearch = () => {
     zip = zip.replace(/[^0-9]/g, '');
     zip = zip.substring(0, 5);
     setZip(zip);
     getMarkets(zip);
     clearInput();
-  } 
+  };
 
   const clearInput = () => {
     setZip('');
-  }
+  };
 
   return (
-    <form>
-      <label className='zip-label'>Enter your zip code: </label>
-      <input 
-        type='number' 
+    <form className='zip-search'>
+      <label className='zip-label'>
+        Enter your zip code to find markets near you:{' '}
+      </label>
+      <input
+        type='number'
         name='zip'
-        placeholder='zip...'
+        placeholder='Zip Code'
+        value={zip}
         onChange={e => setZip(e.target.value)}
         min='00001'
         max='99999'
         required
       />
-      <button 
-        className='find-btn' 
-        onClick={submitZipSearch}
-      >Find Markets</button>
+      <Link to='/markets' className='find-btn' onClick={submitZipSearch}>
+        Find Markets
+      </Link>
     </form>
   );
-}
-
-export default Search;
+};

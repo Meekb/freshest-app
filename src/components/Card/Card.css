@@ -1,0 +1,17 @@
+.market-card {
+  font-size: 100%;
+  font-family: inherit;
+  border: 1px solid red;
+  padding: 0;
+}
+
+/* --------- MEDIA QUERIES -----------  */
+
+@media screen and (min-width: 620px) {
+}
+
+@media screen and (min-width: 900px) {
+}
+
+@media screen and (min-width: 1200px) {
+}
