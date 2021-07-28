@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React from "react";
 import "../Details/Details.css"
 
@@ -39,3 +40,12 @@ const Details: React.FC<MarketProps> = ({ markets, marketDetails }) => {
 }
 
 export default Details;
+=======
+import React from 'react';
+
+interface DetailsProps {}
+
+export const Details: React.FC<DetailsProps> = ({}) => {
+  return <></>;
+};
+>>>>>>> main

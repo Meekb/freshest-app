@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .market-details {
   display: flex;
   flex-direction: column;
@@ -5,3 +6,15 @@
   align-items: center;
   background-color: #14b37e;
 }
+=======
+/* --------- MEDIA QUERIES -----------  */
+
+@media screen and (min-width: 620px) {
+}
+
+@media screen and (min-width: 900px) {
+}
+
+@media screen and (min-width: 1200px) {
+}
+>>>>>>> main
