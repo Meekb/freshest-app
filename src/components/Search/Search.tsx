@@ -7,12 +7,13 @@ interface getMarkets {
 
 const Search: React.FC<getMarkets> = ({getMarkets}) => {
 
-  const [zip, setZip] = useState('')
-  console.log(zip);
+  let [zip, setZip] = useState('')
 
   const submitZipSearch = (event: React.MouseEvent<HTMLButtonElement>) => {
-    // if zip.length  > 5 we need to give the user an error
     event.preventDefault();
+    zip = zip.replace(/[^0-9]/g, '');
+    zip = zip.substring(0, 5);
+    setZip(zip);
     getMarkets(zip);
     clearInput();
   } 
