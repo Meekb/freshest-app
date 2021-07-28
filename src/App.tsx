@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Route, Switch } from 'react-router';
-import { fetchData } from './utils/apiCalls';
+import { getData } from './utils/apiCalls';
 import {
   cleanMarketsData,
   cleanDetailsData,
@@ -43,7 +43,7 @@ export const App: React.FC = () => {
   const getMarkets = async (zip: string) => {
     setZip(zip);
     try {
-      let response = await fetchData(`zipSearch?zip=${zip}`);
+      let response = await getData(`zipSearch?zip=${zip}`);
       checkForError(response);
       let data = await response.json();
       let cleanedData = cleanMarketsData(data.results);
@@ -57,7 +57,7 @@ export const App: React.FC = () => {
   const getDetails = (filteredMarkets: ApiMarkets['markets']) => {
     Promise.all(
       filteredMarkets.map(currentMarket => {
-        return fetchData(`mktDetail?id=${currentMarket.id}`)
+        return getData(`mktDetail?id=${currentMarket.id}`)
           .then(response => checkForError(response))
           .then(response => response.json());
       })

@@ -1,6 +1,6 @@
 .results-container {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(245px, 1fr));
   gap: 1em;
   margin: 1em;
 }
@@ -8,22 +8,10 @@
 /* --------- MEDIA QUERIES -----------  */
 
 @media screen and (min-width: 620px) {
-  .results-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-  }
 }
 
 @media screen and (min-width: 900px) {
-  .results-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-  }
 }
 
 @media screen and (min-width: 1200px) {
-  .results-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-  }
 }
