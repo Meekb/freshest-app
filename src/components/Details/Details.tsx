@@ -1,3 +1,7 @@
-import React from "react";
+import React from 'react';
 
-export {}
+interface DetailsProps {}
+
+export const Details: React.FC<DetailsProps> = ({}) => {
+  return <></>;
+};
