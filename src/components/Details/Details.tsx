@@ -28,27 +28,31 @@ const Details: React.FC<MarketProps> = ({ id, markets, marketDetails }) => {
   const marketMatch = markets.filter(market => market.id === Number(id));
   const detailsMatch = marketDetails.filter(market => { 
     let match = market.mapsLink.split('%22')[1].includes(marketMatch[0].marketName.split(' ')[0]);
-    console.log(marketMatch[0].marketName)
     return match
   });
+
   const nameMatch = marketMatch[0].marketName;
   const detail = detailsMatch[0];
   const openSeason = `Season: ${detail.schedule[0].season}`;
   const daysAndTimes = `Open: ${detail.schedule[0].dayOfWeek} ${detail.schedule[0].time}`;
+  let randomId = ~~(Math.random() * detail.products.length);
   const productList = detail.products.map(prod => {
+    let key = Date.now() + prod.indexOf(prod)
     return (
     <div className='list'>
       <ul>
-        <li> {prod}, </li>
+        <li key={key}> {prod}, </li>
       </ul>
     </div>
     );
   });
 
+  console.log(randomId)
+
   return (
     <section className='market-details'>
       <h1> {nameMatch} </h1>
-        <p> Located at: {detail.street}, {detail.city} {detail.state}, {detail.zip} </p>
+      <p> Located at: {detail.street}, {detail.city} {detail.state}, {detail.zip} </p>
       <div className='schedule'>
         <h4> Season and Schedule: </h4>
         <p> {openSeason} </p>
@@ -56,7 +60,7 @@ const Details: React.FC<MarketProps> = ({ id, markets, marketDetails }) => {
       </div>
       <div className='prod-list'>
         <h4> Products available at this market: </h4>
-        <p> {productList} </p>
+        {productList}
       </div>
       <a href={detail.mapsLink} target='_blank' className='link' > Open this location in Google Maps </a>
     </section>
