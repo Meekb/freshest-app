@@ -59,7 +59,7 @@ const Details: React.FC<MarketProps> = ({ id, markets, marketDetails }) => {
         <h3>Products available at this market:</h3>
         {productList}
       </div>
-      <a href={detail.mapsLink} target='_blank' className='link' > Open this location in Google Maps </a>
+      <a href={detail.mapsLink} target='_blank' className='link' >Open this location in Google Maps</a>
     </section>
   );
 }
