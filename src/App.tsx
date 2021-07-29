@@ -92,7 +92,10 @@ export const App: React.FC = () => {
         <Route
           exact
           path='/markets/:id'
-          render={({ match }) => <Details id={parseInt(match.params.id)} />}
+          render={({ match }) => {
+            const { id } = match.params
+            return <Details id={id} markets={allMarkets} marketDetails={marketDetails} />
+          }}
         />
         {/* <Route
           render={() => (
