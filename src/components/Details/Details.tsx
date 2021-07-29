@@ -36,20 +36,29 @@ const Details: React.FC<MarketProps> = ({ id, markets, marketDetails }) => {
   const openSeason = `Season: ${detail.schedule[0].season}`;
   const daysAndTimes = `Open: ${detail.schedule[0].dayOfWeek} ${detail.schedule[0].time}`;
   const productList = detail.products.map(prod => {
-    return <p>{prod},</p>
+    return (
+    <div className='list'>
+      <ul>
+        <li> {prod}, </li>
+      </ul>
+    </div>
+    );
   });
 
   return (
     <section className='market-details'>
       <h1> {nameMatch} </h1>
-      <p> {detail.street}, {detail.city} {detail.state}, {detail.zip} </p>
-      <p> {openSeason} </p>
-      <p> {daysAndTimes} </p>
-      <div className='products'>
-        <h4>Products available at this market:</h4>
+        <p> Located at: {detail.street}, {detail.city} {detail.state}, {detail.zip} </p>
+      <div className='schedule'>
+        <h4> Season and Schedule: </h4>
+        <p> {openSeason} </p>
+        <p> {daysAndTimes} </p>
+      </div>
+      <div className='prod-list'>
+        <h4> Products available at this market: </h4>
         <p> {productList} </p>
       </div>
-      <a href={detail.mapsLink}>Open in Google Maps</a>
+      <a href={detail.mapsLink} target='_blank' className='link' > Open this location in Google Maps </a>
     </section>
   );
 }
