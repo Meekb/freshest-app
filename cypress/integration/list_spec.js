@@ -13,4 +13,8 @@ describe('List user flows', () => {
     cy.get('h1').contains('Freshly Fetched')
   });
 
+  it('A user should see a list of markets', () => {
+    cy.get('article').should('have.length', 5)
+  });
+
 });
