@@ -1,4 +1,6 @@
-
+.schedule {
+  margin-top: 25px;
+}
 /* --------- MEDIA QUERIES -----------  */
 
 @media screen and (min-width: 620px) {
