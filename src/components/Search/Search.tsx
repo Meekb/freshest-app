@@ -43,7 +43,6 @@ export const Search: React.FC<getMarkets> = ({ getMarkets }) => {
       />
       <label htmlFor="distance">Choose Distance:</label>
       <select id="distance" name="distance" onChange={(e) => setDistance(Number(e.target.value))}>
-        <option value={0}></option>
         <option value={15}>15 miles</option>
         <option value={25}>25 miles</option>
         <option value={50}>50 miles</option>
