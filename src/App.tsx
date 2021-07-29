@@ -7,7 +7,7 @@ import {
   checkForError
 } from './utils/utils';
 import { Results } from './components/Results/Results';
-import Details from './components/Details/Details';
+import { Details } from './components/Details/Details';
 import { Error } from './components/Error/Error';
 import { Search } from './components/Search/Search';
 import './App.css';
