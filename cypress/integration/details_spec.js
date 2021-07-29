@@ -21,4 +21,8 @@ describe('Details user flows', () => {
     cy.contains('Alex\'s Main Street Stand')
   });
 
+  it('The page should display the market address', () => {
+    cy.contains('6666 NW 66th Street, Gainesville, Florida, 32666')
+  });
+
 });
