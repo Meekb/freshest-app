@@ -40,4 +40,10 @@ describe('Search user flows', () => {
 
   });
 
+  it('The form input should only take numbers', () => {
+    cy.get('input[name="zip"]')
+      .type('abababa')
+      .should('have.value', '')
+  });
+
 });
