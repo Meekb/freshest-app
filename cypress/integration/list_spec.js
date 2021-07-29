@@ -50,4 +50,10 @@ describe('List user flows', () => {
       .contains('Wed: 8:30 AM-12:00 PM')
   });
 
+  it('A user should be able to click a market card and be taken to a details page', 
+  () => {
+    cy.get('article[id="1000006"]').click()
+      .url().should('include', '/1000006')
+  });
+
 });
