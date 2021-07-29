@@ -19,4 +19,25 @@ describe('Search user flows', () => {
       .should('have.value', '10101')
   });
 
+  it('Should have a form that takes a 5 digit number between 1 and 99999', 
+  () => {
+    cy.get('input[name="zip"]')
+      .type('{enter}')
+  });
+
+  it('The zip input should not take a number less than 1', () => {
+    cy.get('input[name="zip"]')
+      .type('00000').type('{enter}')
+  });
+
+  it('The zip input should not take a number greater than 100000', () => {
+    cy.get('input[name="zip"]')
+      .type('100000').type('{enter}')
+  });
+
+  it('The submit button is disabled if the number isn\'t 5 digits in length',
+  () => {
+
+  });
+
 });
