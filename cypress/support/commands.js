@@ -15,7 +15,7 @@ Cypress.Commands.add('loadList', () => {
     .intercept('GET', `${url}mktDetail?id=1666666`, 
       { fixture: 'market06.json' })
     .visit('http://localhost:3000')
-    .get('input[name="zip"]')
-    .type('00001')
-    .type('{enter}')
+    .get('input[name="zip"]').type('00001')
+    .get('select').select('50')
+    .get('button').click()
 });
