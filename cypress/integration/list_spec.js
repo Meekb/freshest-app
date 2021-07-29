@@ -27,5 +27,16 @@ describe('List user flows', () => {
       .get('article[id="1006666"]')
       .contains('Claire Springs Farmers Market')
   });
-  
+
+  it('Each market should have a distance', () => {
+    cy.get('article[id="1000006"]')
+      .contains('6.6 miles away')
+      .get('article[id="1000066"]')
+      .contains('16.6 miles away')
+      .get('article[id="1000666"]')
+      .contains('26.6 miles away')
+      .get('article[id="1006666"]')
+      .contains('36.6 miles away')
+  });
+
 });
