@@ -49,7 +49,7 @@ export const App: React.FC = () => {
       let data = await response.json();
       let cleanedData = cleanMarketsData(data.results);
       setMarkets(cleanedData);
-      await getDetails(cleanedData);
+      getDetails(cleanedData);
       history.push('/markets');
     } catch (error) {
       setError(error);
