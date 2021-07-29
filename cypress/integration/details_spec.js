@@ -25,4 +25,9 @@ describe('Details user flows', () => {
     cy.contains('6666 NW 66th Street, Gainesville, Florida, 32666')
   });
 
+  it('The page should display the market schedule', () => {
+    cy.contains('01/24/1986 to 12/31/2016')
+      .contains('Sun: 8:30 AM-12:00 PM')
+  });
+
 });
