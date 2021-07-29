@@ -59,11 +59,22 @@ describe('Search user flows', () => {
 
   it('The form contains a drop down for a mileage filter that has a default value', 
   () => {
+    cy.get('select')
+      .should('have.value', '15')
+  });
 
+  it('User can choose a different value than the default value', 
+  () => {
+    cy.get('select')
+      .select('25')
+      .should('have.value', '25')
   });
 
   it('The submit button routes the user to the List component', () => {
-
+    cy.get('input[name="zip"]')
+      .type('00001')
+      .type('{enter}')
+      .url().should('include', '/markets')
   });
 
 });
