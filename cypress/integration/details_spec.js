@@ -38,4 +38,9 @@ describe('Details user flows', () => {
       .contains('Cat food')
   });
 
+  it('The page should have a google maps link', () => {
+    cy.get('a')
+      .should('have.attr', 'href').and('include', 'https://goo.gl/maps/eAZ2jAqNNGey8JTE9')
+  });
+
 });
