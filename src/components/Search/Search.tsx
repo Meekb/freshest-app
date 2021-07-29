@@ -10,6 +10,7 @@ interface getMarkets {
 export const Search: React.FC<getMarkets> = ({ getMarkets }) => {
   let [zip, setZip] = useState('');
   let [isValid, setIsValid] = useState(false);
+  let [distance, setDistance] = useState(15)
 
   useEffect(() => {
     const validZip = new RegExp('^[0-9]{5}(?:-[0-9]{4})?$');
@@ -24,7 +25,7 @@ export const Search: React.FC<getMarkets> = ({ getMarkets }) => {
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     e.preventDefault();
-    getMarkets(zip);
+    getMarkets(zip, distance);
     setZip('');
     setDistance(0);
   };

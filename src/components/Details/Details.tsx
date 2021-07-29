@@ -38,7 +38,7 @@ export const Details: React.FC<MarketProps> = ({ id, markets, marketDetails }) =
   const productList = detail.products.map(prod => {
     let key = Date.now() + prod.indexOf(prod)
     return (
-    <div className='list'>
+    <div className='list' key={key}>
       <ul>
         <li key={key}>{prod}</li>
       </ul>
