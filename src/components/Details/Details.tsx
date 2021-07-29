@@ -35,7 +35,6 @@ const Details: React.FC<MarketProps> = ({ id, markets, marketDetails }) => {
   const detail = detailsMatch[0];
   const openSeason = `Season: ${detail.schedule[0].season}`;
   const daysAndTimes = `Open: ${detail.schedule[0].dayOfWeek} ${detail.schedule[0].time}`;
-  let randomId = ~~(Math.random() * detail.products.length);
   const productList = detail.products.map(prod => {
     let key = Date.now() + prod.indexOf(prod)
     return (
@@ -46,8 +45,6 @@ const Details: React.FC<MarketProps> = ({ id, markets, marketDetails }) => {
     </div>
     );
   });
-
-  console.log(randomId)
 
   return (
     <section className='market-details'>
