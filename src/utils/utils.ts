@@ -1,5 +1,5 @@
 export const cleanMarketsData = (
-  response: { id: string; marketname: any }[]
+  response: { id: string; marketname: any }[], distance: number
 ) => {
   let mapped = response.map(currentMarket => {
     let name = currentMarket.marketname.split(' ');
@@ -11,7 +11,7 @@ export const cleanMarketsData = (
     };
   });
 
-  return mapped.filter(currentMarket => currentMarket.distanceFromZip < 50);
+  return mapped.filter(currentMarket => currentMarket.distanceFromZip < distance);
 };
 
 export const cleanDetailsData = (

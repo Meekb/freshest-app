@@ -41,13 +41,13 @@ export const App: React.FC = () => {
   const [error, setError] = useState(0);
   const history = useHistory();
 
-  const getMarkets = async (zip: string) => {
+  const getMarkets = async (zip: string, distance: number) => {
     setZip(zip);
     try {
       let response = await getData(`zipSearch?zip=${zip}`);
       checkForError(response);
       let data = await response.json();
-      let cleanedData = cleanMarketsData(data.results);
+      let cleanedData = cleanMarketsData(data.results, distance);
       setMarkets(cleanedData);
       getDetails(cleanedData);
       history.push('/markets');
