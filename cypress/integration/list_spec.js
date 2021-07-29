@@ -15,7 +15,32 @@ describe('List user flows', () => {
       .type('{enter}')
   });
 
-  it('When a user', () => {
+  it('The url should be ', () => {
+
+  });
+
+  it('Should have a header', () => {
+    cy.contains('Freshly Fetched')
+  });
+
+  it('A user should see a list of markets', () => {
+    
+  });
+
+  it('Each market should have a name', () => {
+    
+  });
+
+  it('Each market should have a distance', () => {
+    
+  });
+
+  it('Each market should have a schedule', () => {
+    
+  });
+
+  it('A user should be able to click a market card and be taken to a details page', 
+  () => {
     
   });
 
