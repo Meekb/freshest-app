@@ -23,7 +23,7 @@ interface MarketProps {
   id: string;
 }
 
-const Details: React.FC<MarketProps> = ({ id, markets, marketDetails }) => {
+export const Details: React.FC<MarketProps> = ({ id, markets, marketDetails }) => {
 
   const marketMatch = markets.filter(market => market.id === Number(id));
   const detailsMatch = marketDetails.filter(market => { 
@@ -63,6 +63,4 @@ const Details: React.FC<MarketProps> = ({ id, markets, marketDetails }) => {
     </section>
   );
 }
-
-export default Details;
 
