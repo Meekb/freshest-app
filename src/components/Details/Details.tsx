@@ -27,7 +27,7 @@ const Details: React.FC<MarketProps> = ({ id, markets, marketDetails }) => {
 
   const marketMatch = markets.filter(market => market.id === Number(id));
   const detailsMatch = marketDetails.filter(market => { 
-    let match = market.mapsLink.split('%22')[1].includes(marketMatch[0].marketName.split(' ')[0]);
+    const match = market.mapsLink.split('%22')[1].includes(marketMatch[0].marketName.split(' ')[0]);
     return match
   });
 
@@ -40,7 +40,7 @@ const Details: React.FC<MarketProps> = ({ id, markets, marketDetails }) => {
     return (
     <div className='list'>
       <ul>
-        <li key={key}> {prod}, </li>
+        <li key={key}>{prod}</li>
       </ul>
     </div>
     );
@@ -48,15 +48,15 @@ const Details: React.FC<MarketProps> = ({ id, markets, marketDetails }) => {
 
   return (
     <section className='market-details'>
-      <h1> {nameMatch} </h1>
-      <p> Located at: {detail.street}, {detail.city} {detail.state}, {detail.zip} </p>
+      <h2>{nameMatch}</h2>
+      <p>Located at: {detail.street}, {detail.city} {detail.state}, {detail.zip}</p>
       <div className='schedule'>
-        <h4> Season and Schedule: </h4>
-        <p> {openSeason} </p>
-        <p> {daysAndTimes} </p>
+        <h3>Season and Schedule:</h3>
+        <p>{openSeason}</p>
+        <p>{daysAndTimes}</p>
       </div>
       <div className='prod-list'>
-        <h4> Products available at this market: </h4>
+        <h3>Products available at this market:</h3>
         {productList}
       </div>
       <a href={detail.mapsLink} target='_blank' className='link' > Open this location in Google Maps </a>
