@@ -30,4 +30,12 @@ describe('Details user flows', () => {
       .contains('Sun: 8:30 AM-12:00 PM')
   });
 
+  it('The page should display the market\'s products', () => {
+    cy.contains('Concrete')
+      .contains('Records')
+      .contains('Bikes')
+      .contains('Cat litter')
+      .contains('Cat food')
+  });
+
 });
