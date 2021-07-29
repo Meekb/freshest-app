@@ -1,8 +1,13 @@
 .results-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(245px, 1fr));
-  gap: 1em;
+  gap: 1.5em;
   margin: 1em;
+}
+
+.results-near {
+  text-align: center;
+  color: #fff9e9;
 }
 
 /* --------- MEDIA QUERIES -----------  */
