@@ -17,4 +17,8 @@ describe('Details user flows', () => {
     cy.get('button')
   });
 
+  it('The page should display the market name', () => {
+    cy.contains('Alex\'s Main Street Stand')
+  });
+
 });
