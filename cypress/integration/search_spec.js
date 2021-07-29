@@ -24,7 +24,7 @@ describe('Search user flows', () => {
     cy.get('input[name="zip"]')
       .type('-12345')
       .get('button')
-      .should('have.attr', 'disabled').and('eq', 'true')
+      .should('be.disabled')
   });
 
   it('The submit button is disabled if the number is greater than 100000', 
@@ -32,7 +32,7 @@ describe('Search user flows', () => {
     cy.get('input[name="zip"]')
     .type('100000')
     .get('button')
-    .should('have.attr', 'disabled').and('eq', 'true')
+    .should('be.disabled')
   });
 
   it('The submit button is disabled if the number isn\'t a whole number', 
@@ -40,7 +40,7 @@ describe('Search user flows', () => {
     cy.get('input[name="zip"]')
     .type('100.00')
     .get('button')
-    .should('have.attr', 'disabled').and('eq', 'true')
+    .should('be.disabled')
   });
 
   it('The submit button is disabled if the number isn\'t 5 digits in length',
@@ -48,7 +48,7 @@ describe('Search user flows', () => {
     cy.get('input[name="zip"]')
       .type('1000')
       .get('button')
-      .should('have.attr', 'disabled').and('eq', 'true')
+      .should('be.disabled')
   });
 
   it('The form input should only take numbers', () => {
