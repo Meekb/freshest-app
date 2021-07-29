@@ -95,13 +95,19 @@ export const App: React.FC = () => {
           exact
           path='/markets/:id'
 <<<<<<< HEAD
+<<<<<<< HEAD
           render={({ match }) => <Details />}
 =======
+=======
+>>>>>>> c1da71d009c79962b70d1b1cb44be9727350ef2d
           render={({ match }) => {
             const { id } = match.params
             return <Details id={id} markets={allMarkets} marketDetails={marketDetails} />
           }}
+<<<<<<< HEAD
 >>>>>>> 77379fb (Get all of the minor details displaying inside of the Details component, and test that Route to Details in App is working as expected)
+=======
+>>>>>>> c1da71d009c79962b70d1b1cb44be9727350ef2d
         />
         {/* <Route
           render={() => (
