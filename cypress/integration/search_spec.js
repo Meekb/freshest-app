@@ -31,6 +31,12 @@ describe('Search user flows', () => {
       .should('have.value', '10101')
   });
 
+  it('The zip input is empty and the submit button is disabled by default', 
+  () => {
+    cy.get('button')
+      .should('be.disabled')
+  });
+
   it('The submit button is disabled if the number is less than 1', () => {
     cy.get('input[name="zip"]')
       .type('-12345')
