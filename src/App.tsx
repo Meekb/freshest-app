@@ -39,6 +39,7 @@ interface ApiMarkets {
 export const App: React.FC = () => {
   const [allMarkets, setMarkets] = useState<ApiMarkets['markets']>([]);
   const [marketDetails, setDetails] = useState<ApiMarkets['marketDetails']>([]);
+  const [selectedMarket, setSelectedMarket] = useState({});
   const [zip, setZip] = useState<string>('');
   const [error, setError] = useState(0);
   const history = useHistory();
@@ -75,6 +76,10 @@ export const App: React.FC = () => {
     setDetails(data.marketDetails)
   }
 
+  const findSelectedMarket = () => {
+    
+  }  
+
   return (
     <main>
       <header>
@@ -93,6 +98,7 @@ export const App: React.FC = () => {
             <Results
               allMarkets={allMarkets}
               zip={zip}
+              findSelectedMarket={findSelectedMarket} 
             />
           )}
         />

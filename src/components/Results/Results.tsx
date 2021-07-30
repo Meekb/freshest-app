@@ -8,11 +8,13 @@ interface ResultsProps {
     marketName: string;
   }[];
   zip: string;
+  findSelectedMarket: () => void;
 }
 
 export const Results: React.FC<ResultsProps> = ({
   allMarkets,
-  zip
+  zip,
+  findSelectedMarket
 }) => {
   const makeCards = () => {
     return allMarkets.map(market => {
@@ -22,6 +24,7 @@ export const Results: React.FC<ResultsProps> = ({
           id={market.id}
           name={market.marketName}
           distance={market.distanceFromZip}
+          findSelectedMarket={findSelectedMarket}
         />
       );
     });

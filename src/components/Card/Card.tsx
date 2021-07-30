@@ -1,18 +1,26 @@
 import React from 'react';
 import './Card.css';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import veggies from '../../images/shelley-pauls.jpg';
 
 interface CardProps {
   id: number;
   distance: number;
   name: string;
+  findSelectedMarket: () => void;
 }
 
-export const Card: React.FC<CardProps> = ({ id, name, distance }) => {
+export const Card: React.FC<CardProps> = ({ id, name, distance, findSelectedMarket }) => {
+  const history = useHistory();
+
+  const handleClick = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+    e.preventDefault();
+    findSelectedMarket()
+    history.push(`/markets/${id}`);
+  }
+
   return (
-    <Link to={`/markets/${id}`} className='link'>
-      <article className='market-card' id={`${id}`}>
+      <article className='market-card' id={`${id}`} onClick={e => handleClick(e)}>
         <div className='veggie-container'>
           <img src={veggies} alt='fresh produce' className='veggie-img' />
         </div>
@@ -21,6 +29,5 @@ export const Card: React.FC<CardProps> = ({ id, name, distance }) => {
           <p>{distance} miles away</p>
         </div>
       </article>
-    </Link>
   );
 };
