@@ -1,8 +1,8 @@
 export const cleanMarketsData = (
-  response: { id: string; marketname: any }[], distance: number ) => {
+  response: { id: string; marketname: string }[], distance: number ) => {
   let mapped = response.map(currentMarket => {
     let name = currentMarket.marketname.split(' ');
-    let distance = name[0];
+    let distance = parseInt(name[0]);
     return {
       id: parseInt(currentMarket.id),
       distanceFromZip: Math.round(distance * 10) / 10,
