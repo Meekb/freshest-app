@@ -35,13 +35,12 @@ interface ApiMarkets {
     products: string[];
     mapsLink: string;
   }[];
-  zip: string;
 }
 
 export const App: React.FC = () => {
   const [allMarkets, setMarkets] = useState<ApiMarkets['markets']>([]);
   const [marketDetails, setDetails] = useState<ApiMarkets['marketDetails']>([]);
-  const [zip, setZip] = useState<ApiMarkets['zip']>('');
+  const [zip, setZip] = useState<string>('');
   const [error, setError] = useState(0);
   const history = useHistory();
 
@@ -72,7 +71,7 @@ export const App: React.FC = () => {
     .then(completeData => setData(completeData))
   };
 
-  const setData = (data: any) => {
+  const setData = (data: ApiMarkets) => {
     setMarkets(data.markets)
     setDetails(data.marketDetails)
   }
