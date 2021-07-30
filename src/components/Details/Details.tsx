@@ -1,6 +1,8 @@
 import React from 'react';
 import './Details.css';
 import pin from '../../images/location-pin.png';
+import { NavLink } from 'react-router-dom';
+import previous from '../../images/previous.png';
 
 interface MarketProps {
   markets: {
@@ -55,6 +57,13 @@ export const Details: React.FC<MarketProps> = ({
   return (
     <div className='container'>
       <div className='image-container'>
+        <NavLink to='/markets'>
+          <img
+            src={previous}
+            alt='go back to previous'
+            className='previous-icon'
+          />
+        </NavLink>
         <div className='name-overlay'>
           <h2 className='market-name'>{nameMatch}</h2>
         </div>

@@ -22,20 +22,29 @@
 
 .name-overlay {
   position: absolute;
-  top: 20%;
+  top: 25%;
   width: 100%;
   background-color: rgba(255, 255, 255, 0.6);
+}
+
+.market-name {
+  text-align: center;
+  color: black;
+  padding: 0.5em;
+  font-size: 1.5em;
+}
+
+.previous-icon {
+  width: 3em;
+  height: 3em;
+  position: absolute;
+  top: 1em;
+  left: 1em;
 }
 
 .pin-icon {
   height: 2em;
   width: auto;
-}
-.market-name {
-  text-align: center;
-  color: black;
-  padding: 0.5em;
-  font-size: 2em;
 }
 
 .market-details {
@@ -85,9 +94,15 @@
 /* --------- MEDIA QUERIES -----------  */
 
 @media screen and (min-width: 620px) {
+  .market-name {
+    font-size: 1.75em;
+  }
 }
 
 @media screen and (min-width: 900px) {
+  .market-name {
+    font-size: 2em;
+  }
 }
 
 @media screen and (min-width: 1200px) {
