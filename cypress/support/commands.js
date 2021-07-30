@@ -1,25 +1,21 @@
-// ***********************************************
-// This example commands.js shows you how to
-// create various custom commands and overwrite
-// existing commands.
-//
-// For more comprehensive examples of custom
-// commands please read more here:
-// https://on.cypress.io/custom-commands
-// ***********************************************
-//
-//
-// -- This is a parent command --
-// Cypress.Commands.add('login', (email, password) => { ... })
-//
-//
-// -- This is a child command --
-// Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add('dismiss', { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This will overwrite an existing command --
-// Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+Cypress.Commands.add('loadList', () => {
+  let url = 'https://search.ams.usda.gov/farmersmarkets/v1/data.svc/'
+  cy.intercept('GET', `${url}zipSearch?zip=00001`, 
+      { statusCode: 200, fixture: 'markets.json' })
+    .intercept('GET', `${url}mktDetail?id=1000006`, 
+      { fixture: 'market01.json' })
+    .intercept('GET', `${url}mktDetail?id=1000066`, 
+      { fixture: 'market02.json' })
+    .intercept('GET', `${url}mktDetail?id=1000666`, 
+      { fixture: 'market03.json' })
+    .intercept('GET', `${url}mktDetail?id=1006666`, 
+      { fixture: 'market04.json' })
+    .intercept('GET', `${url}mktDetail?id=1066666`, 
+      { fixture: 'market05.json' })
+    .intercept('GET', `${url}mktDetail?id=1666666`, 
+      { fixture: 'market06.json' })
+    .visit('http://localhost:3000')
+    .get('input[name="zip"]').type('00001')
+    .get('select').select('50')
+    .get('button').click()
+});

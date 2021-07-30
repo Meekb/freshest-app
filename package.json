@@ -45,6 +45,7 @@
   },
   "devDependencies": {
     "@types/react-router-dom": "^5.1.8",
-    "cypress": "^8.0.0"
+    "cypress": "^8.0.0",
+    "cypress-plugin-tab": "^1.0.5"
   }
 }
