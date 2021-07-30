@@ -13,6 +13,12 @@ describe('Details user flows', () => {
     cy.get('h1').contains('Freshly Fetched')
   });
 
+  it('The app title should be a link home', 
+  () => {
+    cy.get('h1').click()
+      .url().should('include', '/')
+  });
+
   it('The page should have a back button', () => {
     cy.get('button').click()
       .url().should('include', '/markets')

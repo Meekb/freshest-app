@@ -4,9 +4,20 @@ describe('Search user flows', () => {
     cy.visit('http://localhost:3000');
   });
 
+  it('The url should be url/', 
+  () => {
+    cy.url().should('include', '/')
+  });
+
   it('When a user first visits the site it should display the name of the app', 
   () => {
     cy.get('h1').contains('Freshly Fetched')
+  });
+
+  it('The app title should be a link home', 
+  () => {
+    cy.get('h1').click()
+      .url().should('include', '/')
   });
 
   it('When a user first visits the site it should contain instructions', () => {
