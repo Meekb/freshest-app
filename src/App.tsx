@@ -66,7 +66,7 @@ export const App: React.FC = () => {
   const [selectedMarket, setSelectedMarket] =
     useState<OneDetail['oneDetail']>();
   const [zip, setZip] = useState<string>('');
-  const [error, setError] = useState(0);
+  const [errorCode, setErrorCode] = useState("");
   const history = useHistory();
 
   const getMarkets = async (zip: string, distance: number) => {
@@ -78,7 +78,8 @@ export const App: React.FC = () => {
       getDetails(cleanedData);
       history.push('/markets');
     } catch (error) {
-      setError(error);
+      setErrorCode(error);
+      console.log(errorCode)
     }
   };
 
