@@ -5,7 +5,7 @@ describe('Details user flows', () => {
       .get('article[id="1000006"]').click()
   });
 
-  it('The url should be ', () => {
+  it('The url should be url/markets/:marketID', () => {
     cy.url().should('include', '/1000006')
   });
 
@@ -14,7 +14,8 @@ describe('Details user flows', () => {
   });
 
   it('The page should have a back button', () => {
-    cy.get('button')
+    cy.get('button').click()
+      .url().should('include', '/markets')
   });
 
   it('The page should display the market name', () => {
