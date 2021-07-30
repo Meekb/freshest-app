@@ -2,6 +2,15 @@
   margin-top: 25px;
 }
 
+.market-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #14b37e;
+  width: 70%;
+}
+
 /* --------- MEDIA QUERIES -----------  */
 
 @media screen and (min-width: 620px) {
@@ -12,12 +21,3 @@
 
 @media screen and (min-width: 1200px) {
 }
-
-.market-details {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-color: #14b37e;
-}
-

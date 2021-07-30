@@ -70,47 +70,49 @@ export const App: React.FC = () => {
   };
 
   return (
-    <main>
+    <>
       <header>
         <h1>Freshly Fetched</h1>
       </header>
-      <Switch>
-        <Route
-          exact
-          path='/'
-          render={() => <Search getMarkets={getMarkets} />}
-        />
-        <Route
-          exact
-          path='/markets'
-          render={() => (
-            <Results
-              allMarkets={allMarkets}
-              marketDetails={marketDetails}
-              zip={zip}
-            />
-          )}
-        />
-        <Route
-          exact
-          path='/markets/:id'
-          render={({ match }) => {
-            const { id } = match.params;
-            return (
-              <Details
-                id={id}
-                markets={allMarkets}
+      <main>
+        <Switch>
+          <Route
+            exact
+            path='/'
+            render={() => <Search getMarkets={getMarkets} />}
+          />
+          <Route
+            exact
+            path='/markets'
+            render={() => (
+              <Results
+                allMarkets={allMarkets}
                 marketDetails={marketDetails}
+                zip={zip}
               />
-            );
-          }}
-        />
-        {/* <Route
+            )}
+          />
+          <Route
+            exact
+            path='/markets/:id'
+            render={({ match }) => {
+              const { id } = match.params;
+              return (
+                <Details
+                  id={id}
+                  markets={allMarkets}
+                  marketDetails={marketDetails}
+                />
+              );
+            }}
+          />
+          {/* <Route
           render={() => (
             <Error error="Sorry that page doesn't exist, do you want to go home?" />
           )}
         /> */}
-      </Switch>
-    </main>
+        </Switch>
+      </main>
+    </>
   );
 };
