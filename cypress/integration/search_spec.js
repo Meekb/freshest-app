@@ -90,6 +90,13 @@ describe('Search user flows', () => {
   it('The submit button routes the user to the List component', () => {
     cy.get('input[name="zip"]')
       .type('00001')
+      .get('button').click()
+      .url().should('include', '/markets')
+  });
+
+  it('The homepage can be fully navigated using tab', () => {
+    cy.get('body').tab()
+      .type('00001').tab().tab()
       .type('{enter}')
       .url().should('include', '/markets')
   });
