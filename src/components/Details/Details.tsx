@@ -1,5 +1,6 @@
 import React from 'react';
 import './Details.css';
+import pin from '../../images/location-pin.png';
 
 interface MarketProps {
   markets: {
@@ -52,23 +53,33 @@ export const Details: React.FC<MarketProps> = ({
   });
 
   return (
-    <section className='market-details'>
-      <h2>{nameMatch}</h2>
-      <p>
-        Located at: {detail.street}, {detail.city} {detail.state}, {detail.zip}
-      </p>
-      <div className='schedule'>
-        <h3>Season and Schedule:</h3>
-        <p>{openSeason}</p>
-        <p>{daysAndTimes}</p>
+    <div className='container'>
+      <div className='image-container'>
+        <div className='name-overlay'>
+          <h2 className='market-name'>{nameMatch}</h2>
+        </div>
       </div>
-      <div className='prod-list'>
-        <h3>Products available at this market:</h3>
-        {productList}
-      </div>
-      <a href={detail.mapsLink} target='_blank' rel='noreferrer'>
-        Open this location in Google Maps
-      </a>
-    </section>
+      <section className='market-details'>
+        <section className='location-details'>
+          <img src={pin} alt='location pin icon' className='pin-icon' />
+          <p>{detail.street}</p>
+          <p>
+            {detail.city}, {detail.state} {detail.zip}
+          </p>
+          <a href={detail.mapsLink} target='_blank' rel='noreferrer'>
+            Open in Google Maps
+          </a>
+        </section>
+        <div className='schedule'>
+          <h3>Season and Schedule:</h3>
+          <p>{openSeason}</p>
+          <p>{daysAndTimes}</p>
+        </div>
+        <div className='prod-list'>
+          <h3>Products available at this market:</h3>
+          {productList}
+        </div>
+      </section>
+    </div>
   );
 };
