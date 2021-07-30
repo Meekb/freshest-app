@@ -7,25 +7,11 @@ interface ResultsProps {
     distanceFromZip: number;
     marketName: string;
   }[];
-  marketDetails: {
-    street: string;
-    city: string;
-    state: string;
-    zip: string;
-    schedule: {
-      dayOfWeek: string;
-      time: string;
-      season: string;
-    }[];
-    products: string[];
-    mapsLink: string;
-  }[];
   zip: string;
 }
 
 export const Results: React.FC<ResultsProps> = ({
   allMarkets,
-  marketDetails,
   zip
 }) => {
   const makeCards = () => {
