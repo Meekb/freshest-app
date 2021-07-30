@@ -11,6 +11,7 @@ import { Details } from './components/Details/Details';
 import { Error } from './components/Error/Error';
 import { Search } from './components/Search/Search';
 import './App.css';
+import ScrollToTop from './scrollToTop';
 
 interface ApiMarkets {
   markets: {
@@ -71,6 +72,8 @@ export const App: React.FC = () => {
 
   return (
     <>
+      <ScrollToTop />
+
       <header>
         <h1>Freshly Fetched</h1>
       </header>
