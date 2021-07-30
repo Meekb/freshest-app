@@ -12,7 +12,7 @@ interface CardProps {
 export const Card: React.FC<CardProps> = ({ id, name, distance }) => {
   return (
     <Link to={`/markets/${id}`} className='link'>
-      <article className='market-card' id={id.toString()}>
+      <article className='market-card' id={`${id}`}>
         <div className='veggie-container'>
           <img src={veggies} alt='fresh produce' className='veggie-img' />
         </div>
