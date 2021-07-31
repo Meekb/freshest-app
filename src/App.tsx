@@ -4,6 +4,7 @@ import { getData } from './utils/apiCalls';
 import {
   cleanMarketsData,
   cleanDetailsData,
+  addScheduleToMarkets,
   checkForError
 } from './utils/utils';
 import { Results } from './components/Results/Results';
@@ -18,8 +19,10 @@ interface ApiMarkets {
     id: number;
     distanceFromZip: number;
     marketName: string;
+    schedule: {};
   }[];
   marketDetails: {
+    id: number;
     street: string;
     city: string;
     state: string;
@@ -31,14 +34,14 @@ interface ApiMarkets {
     }[];
     products: string[];
     mapsLink: string;
+    name: string;
   }[];
-  zip: string;
 }
 
 export const App: React.FC = () => {
   const [allMarkets, setMarkets] = useState<ApiMarkets['markets']>([]);
   const [marketDetails, setDetails] = useState<ApiMarkets['marketDetails']>([]);
-  const [zip, setZip] = useState<ApiMarkets['zip']>('');
+  const [zip, setZip] = useState<string>('');
   const [error, setError] = useState(0);
   const history = useHistory();
 
@@ -49,7 +52,6 @@ export const App: React.FC = () => {
       checkForError(response);
       let data = await response.json();
       let cleanedData = cleanMarketsData(data.results, distance);
-      setMarkets(cleanedData);
       getDetails(cleanedData);
       history.push('/markets');
     } catch (error) {
@@ -62,13 +64,18 @@ export const App: React.FC = () => {
       filteredMarkets.map(currentMarket => {
         return getData(`mktDetail?id=${currentMarket.id}`)
           .then(response => checkForError(response))
-          .then(response => response.json());
+          .then(response => response.json())
+          .then(data => cleanDetailsData(data.marketdetails, currentMarket.id))
       })
     )
-      .then(arrayOfPromises => cleanDetailsData(arrayOfPromises))
-      .then(cleanData => setDetails(cleanData))
-      .catch(error => setError(error));
+    .then(data => addScheduleToMarkets(data, filteredMarkets))
+    .then(completeData => setData(completeData))
   };
+
+  const setData = (data: ApiMarkets) => {
+    setMarkets(data.markets)
+    setDetails(data.marketDetails)
+  }
 
   return (
     <>
