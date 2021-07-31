@@ -9,14 +9,12 @@ interface ErrorProps {
 export const Error: React.FC<ErrorProps> = ({
   errorCode
 }) => {
-  const [ serverError, setServerError ] = useState<ErrorProps["errorCode"]>(errorCode);
-  //const [ loading, setLoading ] = useState<ErrorProps["loading"]>("Loading...");
+  const [ serverError ] = useState<ErrorProps["errorCode"]>(errorCode);
 
 
   return (
     <div>
     { serverError === "500" ? <h2>"Our Servers are down, please try again."</h2> : <h2>Something went wrong, please try again!</h2>}
-    { !serverError && <h2>Loading...</h2> }
     </div>
   );
 };
