@@ -138,7 +138,7 @@ export const App: React.FC = () => {
       <ScrollToTop />
 
       <header>
-       <Link to='/'><h1>Freshly Fetched</h1></Link> 
+       <Link to='/' style={{ textDecoration: 'none' }}><h1>Freshly Fetched</h1></Link> 
       </header>
       <main>
         <Switch>

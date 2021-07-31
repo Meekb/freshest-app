@@ -32,6 +32,11 @@ header {
 header h1 {
   color: #fff9e9;
   font-family: 'Fredericka the Great', cursive;
+  border-bottom: 2px solid transparent;
+}
+
+h1:hover {
+  border-bottom: 2px solid #fff9e9;
 }
 
 /* --------- MEDIA QUERIES -----------  */
