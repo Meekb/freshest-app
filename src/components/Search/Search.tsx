@@ -10,7 +10,7 @@ interface getMarkets {
 export const Search: React.FC<getMarkets> = ({ getMarkets }) => {
   let [zip, setZip] = useState('');
   let [isValid, setIsValid] = useState(false);
-  let [distance, setDistance] = useState(15)
+  let [distance, setDistance] = useState(15);
 
   useEffect(() => {
     const validZip = new RegExp('^[0-9]{5}(?:-[0-9]{4})?$');
@@ -42,8 +42,14 @@ export const Search: React.FC<getMarkets> = ({ getMarkets }) => {
         value={zip}
         onChange={e => setZip(e.target.value)}
       />
-      <label htmlFor="distance">Choose Distance:</label>
-      <select id="distance" name="distance" onChange={(e) => setDistance(Number(e.target.value))}>
+      <label className='label' htmlFor='distance'>
+        Choose Distance:
+      </label>
+      <select
+        id='distance'
+        name='distance'
+        onChange={e => setDistance(Number(e.target.value))}
+      >
         <option value={15}>15 miles</option>
         <option value={25}>25 miles</option>
         <option value={50}>50 miles</option>
@@ -53,7 +59,8 @@ export const Search: React.FC<getMarkets> = ({ getMarkets }) => {
         className='find-btn'
         onClick={e => onSubmitSearch(e)}
         disabled={!isValid}
-      >Find Markets
+      >
+        Find Markets
       </button>
     </form>
   );

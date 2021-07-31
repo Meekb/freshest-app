@@ -12,6 +12,7 @@ import { Details } from './components/Details/Details';
 import { Error } from './components/Error/Error';
 import { Search } from './components/Search/Search';
 import './App.css';
+import ScrollToTop from './scrollToTop';
 
 interface ApiMarkets {
   markets: {
@@ -99,9 +100,10 @@ export const App: React.FC = () => {
     setSelectedMarket(marketDetails.find(market => market.id === marketID))
     history.push(`/markets/${marketID}`);
   }
-
   return (
-    <main>
+    <>
+      <ScrollToTop />
+
       <header>
         <h1>Freshly Fetched</h1>
       </header>
@@ -132,15 +134,29 @@ export const App: React.FC = () => {
                 id={id}
                 selectedMarket={selectedMarket}
               />
-            );
-          }}
-        />
-        {/* <Route
+            )}
+          />
+          <Route
+            exact
+            path='/markets/:id'
+            render={({ match }) => {
+              const { id } = match.params;
+              return (
+                <Details
+                  id={id}
+                  markets={allMarkets}
+                  marketDetails={marketDetails}
+                />
+              );
+            }}
+          />
+          {/* <Route
           render={() => (
             <Error error="Sorry that page doesn't exist, do you want to go home?" />
           )}
         /> */}
-      </Switch>
-    </main>
+        </Switch>
+      </main>
+    </>
   );
 };
