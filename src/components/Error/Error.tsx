@@ -4,14 +4,12 @@ import { Link } from 'react-router-dom'
 
 interface ErrorProps {
   errorCode?: string;
-  // loading?: string;
 }
 
 export const Error: React.FC<ErrorProps> = ({
   errorCode
 }) => {
   const [ serverError ] = useState<ErrorProps["errorCode"]>(errorCode);
-
 
   return (
     <div>

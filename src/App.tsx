@@ -87,29 +87,9 @@ export const App: React.FC = () => {
       getDetails(cleanedData);
       history.push('/markets');
     } catch (error) {
-      console.log(error)
-      console.log("first", typeof error)
-      //let errors = await error.toUpperCase()
-      // console.log("first", typeof error)
       setErrorCode(error);
-      console.log("second", errorCode)
     }
   };
-
-  // useEffect(() => {setErrorCode(errors)}, [])
-
-  // const getDetails = (filteredMarkets: ApiMarkets['markets']) => {
-  //   Promise.all(
-  //     filteredMarkets.map(currentMarket => {
-  //       return getData(`mktDetail?id=${currentMarket.id}`)
-  //         .then(response => checkForError(response))
-  //         .then(response => response.json());
-  //     })
-  //   )
-  //     .then(arrayOfPromises => cleanDetailsData(arrayOfPromises))
-  //     .then(cleanData => setDetails(cleanData))
-  //     // .catch(error => setErrorCode(error));
-  // };
 
   const getDetails = (filteredMarkets: ApiMarkets['markets']) => {
     Promise.all(
@@ -175,7 +155,6 @@ export const App: React.FC = () => {
           )}
 
         />
-
         <Redirect 
           to="/page-not-found" 
         />
