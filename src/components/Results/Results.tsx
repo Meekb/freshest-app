@@ -8,7 +8,7 @@ interface ResultsProps {
     marketName: string;
   }[];
   zip: string;
-  findSelectedMarket: () => void;
+  findSelectedMarket: (marketID: number) => void;
 }
 
 export const Results: React.FC<ResultsProps> = ({
