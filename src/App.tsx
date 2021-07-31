@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Route, Switch, useHistory } from 'react-router';
+import { Route, Switch, useHistory, Link } from 'react-router-dom';
 import { getData } from './utils/apiCalls';
 import {
   cleanMarketsData,
@@ -125,7 +125,7 @@ export const App: React.FC = () => {
       <ScrollToTop />
 
       <header>
-        <h1>Freshly Fetched</h1>
+       <Link to='/'><h1>Freshly Fetched</h1></Link> 
       </header>
       <main>
         <Switch>
