@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Card } from '../Card/Card';
 import { Filter } from '../Filter/Filter';
 import './Results.css';
+import { Error } from '../Error/Error';
+
 
 interface ResultsProps {
   allMarkets: {
@@ -42,6 +44,7 @@ export const Results: React.FC<ResultsProps> = ({
   marketDetails,
   zip
 }) => {
+  let [error] = useState("")
   const [filteredResults, setFilteredResults] = useState<
     ResultsProps['allMarkets'] | undefined
   >();
@@ -71,6 +74,8 @@ export const Results: React.FC<ResultsProps> = ({
   };
 
   return (
+    // !error && !marketDetails ? <h2>Loading...</h2> :
+    // error ? <Error errorCode={"something went wrong"} /> :
     <>
       <h2 className='results-near'>Results near {zip}</h2>
       <Filter filterCards={filterCards} />
