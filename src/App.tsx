@@ -51,6 +51,7 @@ interface OneDetail {
     }[];
     products: string[];
     mapsLink: string;
+    name: string;
   };
 }
 

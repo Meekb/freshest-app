@@ -16,6 +16,7 @@ interface MarketProps {
     }[];
     products: string[];
     mapsLink: string;
+    name: string;
   };
 }
 
@@ -35,7 +36,7 @@ export const Details: React.FC<MarketProps> = ({ id, selectedMarket }) => {
 
   return (
     <section className='market-details'>
-      {/* <h2>{selectedMarket.name}</h2> */}
+      <h2>{selectedMarket?.name}</h2>
       <p>Located at: {selectedMarket?.street}, {selectedMarket?.city}, {selectedMarket?.state}, {selectedMarket?.zip}</p>
       <div className='schedule'>
         <h3>Season and Schedule:</h3>
