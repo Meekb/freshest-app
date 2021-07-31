@@ -2,22 +2,21 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 
 interface ErrorProps {
-    server: string;
-    client: string;
-    loading: string;
+  errorCode?: string;
+  // loading?: string;
 }
 
-export const Error: React.FC<ErrorProps> = ({}) => {
-  const [ serverError, setServerError ] = useState<ErrorProps["server"]>("");
-  const [ clientError, setClientError ] = useState<ErrorProps["client"]>("")
-  const [ loading, setLoading ] = useState<ErrorProps["loading"]>("")
+export const Error: React.FC<ErrorProps> = ({
+  errorCode
+}) => {
+  const [ serverError, setServerError ] = useState<ErrorProps["errorCode"]>(errorCode);
+  //const [ loading, setLoading ] = useState<ErrorProps["loading"]>("Loading...");
 
 
   return (
-    <>
-    { serverError && <h2>Server Error</h2> }
-    { clientError && <h2>Sorry, page not found. please try again</h2> }
-    { loading && <h2>Loading...</h2> }
-    </>
+    <div>
+    { serverError === "500" ? <h2>"Our Servers are down, please try again."</h2> : <h2>Something went wrong, please try again!</h2>}
+    { !serverError && <h2>Loading...</h2> }
+    </div>
   );
 };

@@ -1,15 +1,24 @@
 import React, { useState } from 'react';
 import { useEffect } from 'react';
+import { Error } from '../Error/Error';
+
 import './Search.css';
 
 interface getMarkets {
   getMarkets: (zip: string, distance: number) => Promise<void>;
+  errorCode?: string;
 }
 
-export const Search: React.FC<getMarkets> = ({ getMarkets }) => {
+// interface ErrorProps {
+//   errorCode?: string;
+// }
+
+export const Search: React.FC<getMarkets> = ({ getMarkets, errorCode }) => {
   let [zip, setZip] = useState('');
   let [isValid, setIsValid] = useState(false);
   let [distance, setDistance] = useState(15);
+  let [error, setErrorCode] = useState(errorCode)
+  
 
   useEffect(() => {
     const validZip = new RegExp('^[0-9]{5}(?:-[0-9]{4})?$');
@@ -25,11 +34,14 @@ export const Search: React.FC<getMarkets> = ({ getMarkets }) => {
   ) => {
     e.preventDefault();
     getMarkets(zip, distance);
+    setErrorCode(errorCode)
+    console.log("searchy", typeof errorCode, errorCode)
     setZip('');
-    setDistance(0);
+    setDistance(15);
   };
 
   return (
+    error ? <Error errorCode={errorCode} /> :
     <form className='zip-search'>
       <label className='zip-label'>
         Enter your zip code to find markets near you:{' '}

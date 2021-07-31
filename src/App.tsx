@@ -40,6 +40,8 @@ interface ApiMarkets {
     mapsLink: string;
     marketName: string;
   }[];
+  //zip: string;
+  errorCode?: string;
 }
 
 interface OneDetail {
@@ -58,6 +60,12 @@ interface OneDetail {
     mapsLink: string;
     marketName: string;
   };
+  zip: string;
+  errorCode?: string;
+}
+
+interface ErrorProps {
+  errorCode?: string;
 }
 
 export const App: React.FC = () => {
@@ -66,7 +74,7 @@ export const App: React.FC = () => {
   const [selectedMarket, setSelectedMarket] =
     useState<OneDetail['oneDetail']>();
   const [zip, setZip] = useState<string>('');
-  const [errorCode, setErrorCode] = useState("");
+  const [errorCode, setErrorCode] = useState<ApiMarkets["errorCode"]>("");
   const history = useHistory();
 
   const getMarkets = async (zip: string, distance: number) => {
@@ -112,6 +120,7 @@ export const App: React.FC = () => {
       <header>
         <h1>Freshly Fetched</h1>
       </header>
+      {/* {errorCode && <Error errorCode={errorCode}/>} */}
       <main>
         <Switch>
           <Route
@@ -138,11 +147,11 @@ export const App: React.FC = () => {
               return <Details id={id} selectedMarket={selectedMarket} />;
             }}
           />
-          {/* <Route
+          <Route
           render={() => (
-            <Error error="Sorry that page doesn't exist, do you want to go home?" />
+            <Error errorCode={errorCode} />
           )}
-        /> */}
+        />
         </Switch>
       </main>
     </>
