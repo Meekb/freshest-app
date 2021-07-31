@@ -37,7 +37,7 @@ interface ApiMarkets {
 }
 
 interface OneDetail {
-  oneDetail?: {
+  oneDetail: {
     id: number;
     street: string;
     city: string;
@@ -128,8 +128,7 @@ export const App: React.FC = () => {
             return (
               <Details
                 id={id}
-                markets={allMarkets}
-                marketDetails={marketDetails}
+                selectedMarket={selectedMarket}
               />
             );
           }}

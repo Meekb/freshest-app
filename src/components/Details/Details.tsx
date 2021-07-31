@@ -2,40 +2,27 @@ import React from "react";
 import "../Details/Details.css"
 
 interface MarketProps {
-  markets: {
+  id: string,
+  selectedMarket?: {
     id: number;
-    distanceFromZip: number;
-    marketName: string
-  }[],
-  marketDetails: {
-    street: string,
-    city: string,
-    state: string,
-    zip: string,
+    street: string;
+    city: string;
+    state: string;
+    zip: string;
     schedule: {
-      dayOfWeek: string,
-      time: string,
-      season: string
-    }[],
-    products: string[],
-    mapsLink: string
-  }[],
-  id: string;
+      dayOfWeek: string;
+      time: string;
+      season: string;
+    }[];
+    products: string[];
+    mapsLink: string;
+  };
 }
 
-export const Details: React.FC<MarketProps> = ({ id, markets, marketDetails }) => {
-
-  const marketMatch = markets.filter(market => market.id === Number(id));
-  const detailsMatch = marketDetails.filter(market => { 
-    const match = market.mapsLink.split('%22')[1].includes(marketMatch[0].marketName.split(' ')[0]);
-    return match
-  });
-
-  const nameMatch = marketMatch[0].marketName;
-  const detail = detailsMatch[0];
-  const openSeason = `Season: ${detail.schedule[0].season}`;
-  const daysAndTimes = `Open: ${detail.schedule[0].dayOfWeek} ${detail.schedule[0].time}`;
-  const productList = detail.products.map(prod => {
+export const Details: React.FC<MarketProps> = ({ id, selectedMarket }) => {
+  const openSeason = `Season: ${selectedMarket?.schedule[0].season}`;
+  const daysAndTimes = `Open: ${selectedMarket?.schedule[0].dayOfWeek} ${selectedMarket?.schedule[0].time}`;
+  const productList = selectedMarket?.products.map(prod => {
     let key = Date.now() + prod.indexOf(prod)
     return (
     <div className='list' key={key}>
@@ -48,8 +35,8 @@ export const Details: React.FC<MarketProps> = ({ id, markets, marketDetails }) =
 
   return (
     <section className='market-details'>
-      <h2>{nameMatch}</h2>
-      <p>Located at: {detail.street}, {detail.city} {detail.state}, {detail.zip}</p>
+      {/* <h2>{selectedMarket.name}</h2> */}
+      <p>Located at: {selectedMarket?.street}, {selectedMarket?.city}, {selectedMarket?.state}, {selectedMarket?.zip}</p>
       <div className='schedule'>
         <h3>Season and Schedule:</h3>
         <p>{openSeason}</p>
@@ -59,7 +46,7 @@ export const Details: React.FC<MarketProps> = ({ id, markets, marketDetails }) =
         <h3>Products available at this market:</h3>
         {productList}
       </div>
-      <a href={detail.mapsLink} target='_blank' className='link' >Open this location in Google Maps</a>
+      <a href={selectedMarket?.mapsLink} target='_blank' className='link' >Open this location in Google Maps</a>
     </section>
   );
 }
