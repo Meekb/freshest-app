@@ -13,7 +13,7 @@ import { Error } from './components/Error/Error';
 import { Search } from './components/Search/Search';
 import './App.css';
 import ScrollToTop from './scrollToTop';
-import { useEffect } from 'react';
+//import { useEffect } from 'react';
 
 interface ApiMarkets {
   markets: {
@@ -89,9 +89,9 @@ export const App: React.FC = () => {
     } catch (error) {
       console.log(error)
       console.log("first", typeof error)
-      let errors = await error
+      //let errors = await error.toUpperCase()
       // console.log("first", typeof error)
-      setErrorCode(errors);
+      setErrorCode(error);
       console.log("second", errorCode)
     }
   };
@@ -140,25 +140,27 @@ export const App: React.FC = () => {
       <header>
        <Link to='/' style={{ textDecoration: 'none' }}><h1>Freshly Fetched</h1></Link> 
       </header>
-      <main>
+      {!!errorCode?.length && <Error errorCode={errorCode} />}
+    {!errorCode?.length && <main>
         <Switch>
-          <Route
-            exact
-            path='/'
-            render={() => <Search getMarkets={getMarkets} />}
-          />
-          <Route
-            exact
-            path='/markets'
-            render={() => (
-              <Results
-                allMarkets={allMarkets}
-                findSelectedMarket={findSelectedMarket}
-                marketDetails={marketDetails}
-                zip={zip}
-              />
-            )}
-          />
+        <Route
+          exact
+          path='/'
+          render={() => <Search getMarkets={getMarkets} />}
+        />
+        <Route
+          exact
+          path='/markets'
+          render={() => (
+            <Results
+              allMarkets={allMarkets}
+              zip={zip}
+              findSelectedMarket={findSelectedMarket} 
+              marketDetails={marketDetails}
+            />
+          )}
+        />
+
           <Route
             path='/markets/:id'
             render={({ match }) => {
@@ -179,6 +181,7 @@ export const App: React.FC = () => {
         />
         </Switch>
       </main>
+}
     </>
   );
 };

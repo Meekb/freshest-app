@@ -29,6 +29,10 @@ export const Search: React.FC<getMarkets> = ({ getMarkets, errorCode }) => {
     }
   }, [zip]);
 
+  useEffect(() => {
+    console.log("hi claireeee")
+  }, [error])
+
   const onSubmitSearch = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
@@ -41,8 +45,10 @@ export const Search: React.FC<getMarkets> = ({ getMarkets, errorCode }) => {
   };
 
   return (
-    error ? <Error errorCode={errorCode} /> :
-    <form className='zip-search'>
+    // error ? <Error errorCode={errorCode} /> :
+    <>
+    {!!error?.length && <Error errorCode={errorCode} />}
+    {!error?.length && <form className='zip-search'>
       <label className='zip-label'>
         Enter your zip code to find markets near you:{' '}
       </label>
@@ -73,6 +79,7 @@ export const Search: React.FC<getMarkets> = ({ getMarkets, errorCode }) => {
       >
         Find Markets
       </button>
-    </form>
+    </form>}
+    </>
   );
 };
