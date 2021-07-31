@@ -14,7 +14,8 @@ export const Error: React.FC<ErrorProps> = ({
 
   return (
     <div>
-    { serverError === "500" ? <h2>"Our Servers are down, please try again."</h2> : <h2>Something went wrong, please try again!</h2>}
+    { serverError === "500" ? <h2>"Our Servers are down, please try again."</h2> 
+      : <h2>Something went wrong, please try again!</h2>}
     </div>
   );
 };

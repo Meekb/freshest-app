@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Route, Switch, useHistory, Link } from 'react-router-dom';
+import { Route, Switch, useHistory, Link, Redirect } from 'react-router-dom';
 import { getData } from './utils/apiCalls';
 import {
   cleanMarketsData,
@@ -98,6 +98,19 @@ export const App: React.FC = () => {
 
   // useEffect(() => {setErrorCode(errors)}, [])
 
+  // const getDetails = (filteredMarkets: ApiMarkets['markets']) => {
+  //   Promise.all(
+  //     filteredMarkets.map(currentMarket => {
+  //       return getData(`mktDetail?id=${currentMarket.id}`)
+  //         .then(response => checkForError(response))
+  //         .then(response => response.json());
+  //     })
+  //   )
+  //     .then(arrayOfPromises => cleanDetailsData(arrayOfPromises))
+  //     .then(cleanData => setDetails(cleanData))
+  //     // .catch(error => setErrorCode(error));
+  // };
+
   const getDetails = (filteredMarkets: ApiMarkets['markets']) => {
     Promise.all(
       filteredMarkets.map(currentMarket => {
@@ -154,9 +167,15 @@ export const App: React.FC = () => {
             }}
           />
           <Route
+          exact path="/page-not-found"
           render={() => (
-            <Error errorCode={errorCode} />
+            <Error errorCode={"page not found"} />
           )}
+
+        />
+
+        <Redirect 
+          to="/page-not-found" 
         />
         </Switch>
       </main>
