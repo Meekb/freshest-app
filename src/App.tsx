@@ -36,10 +36,27 @@ interface ApiMarkets {
   }[];
 }
 
+interface OneDetail {
+  oneDetail?: {
+    id: number;
+    street: string;
+    city: string;
+    state: string;
+    zip: string;
+    schedule: {
+      dayOfWeek: string;
+      time: string;
+      season: string;
+    }[];
+    products: string[];
+    mapsLink: string;
+  };
+}
+
 export const App: React.FC = () => {
   const [allMarkets, setMarkets] = useState<ApiMarkets['markets']>([]);
   const [marketDetails, setDetails] = useState<ApiMarkets['marketDetails']>([]);
-  const [selectedMarket, setSelectedMarket] = useState({});
+  const [selectedMarket, setSelectedMarket] = useState<OneDetail['oneDetail']>();
   const [zip, setZip] = useState<string>('');
   const [error, setError] = useState(0);
   const history = useHistory();
@@ -77,6 +94,7 @@ export const App: React.FC = () => {
   }
 
   const findSelectedMarket = (marketID: number) => {
+    setSelectedMarket(marketDetails.find(market => market.id === marketID))
     history.push(`/markets/${marketID}`);
   }
 
