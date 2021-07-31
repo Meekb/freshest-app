@@ -1,5 +1,6 @@
 import React from 'react';
 import { Card } from '../Card/Card';
+import { Filter } from '../Filter/Filter';
 import './Results.css';
 
 interface ResultsProps {
@@ -31,9 +32,11 @@ export const Results: React.FC<ResultsProps> = ({
     });
   };
 
+  console.log(<Filter />)
   return (
     <>
       <h2 className='results-near'>Results near {zip}</h2>
+      <Filter />
       <div className='results-container'>{makeCards()}</div>
     </>
   );
