@@ -13,6 +13,7 @@ import { Error } from './components/Error/Error';
 import { Search } from './components/Search/Search';
 import './App.css';
 import ScrollToTop from './scrollToTop';
+import { useEffect } from 'react';
 
 interface ApiMarkets {
   markets: {
@@ -86,10 +87,16 @@ export const App: React.FC = () => {
       getDetails(cleanedData);
       history.push('/markets');
     } catch (error) {
-      setErrorCode(error);
-      console.log(errorCode)
+      console.log(error)
+      console.log("first", typeof error)
+      let errors = await error
+      // console.log("first", typeof error)
+      setErrorCode(errors);
+      console.log("second", errorCode)
     }
   };
+
+  // useEffect(() => {setErrorCode(errors)}, [])
 
   const getDetails = (filteredMarkets: ApiMarkets['markets']) => {
     Promise.all(
@@ -120,7 +127,6 @@ export const App: React.FC = () => {
       <header>
         <h1>Freshly Fetched</h1>
       </header>
-      {/* {errorCode && <Error errorCode={errorCode}/>} */}
       <main>
         <Switch>
           <Route

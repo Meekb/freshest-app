@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Details.css';
 import pin from '../../images/location-pin.png';
 import { NavLink } from 'react-router-dom';
 import previous from '../../images/previous.png';
+import { Error } from '../Error/Error';
 
 interface SelectedMarketProps {
   selectedMarket?: {
@@ -21,6 +22,7 @@ interface SelectedMarketProps {
     marketName: string;
   };
   id: string;
+  errorCode?: string;
 }
 
 export const Details: React.FC<SelectedMarketProps> = ({
@@ -28,6 +30,8 @@ export const Details: React.FC<SelectedMarketProps> = ({
   id
 }) => {
   const openSeason = `Season: ${selectedMarket?.schedule[0].season}`;
+
+  let [error, setErrorCode] = useState("")
 
   const daysAndTimes = selectedMarket?.schedule.map((sched, index) => {
     return (
@@ -51,7 +55,9 @@ export const Details: React.FC<SelectedMarketProps> = ({
     );
   });
 
+
   return (
+    error ? <Error errorCode={"something went wrong"} /> :
     <div className='container'>
       <div className='image-container'>
         <NavLink to='/markets'>
