@@ -38,9 +38,28 @@ interface ApiMarkets {
   }[];
 }
 
+interface OneDetail {
+  oneDetail: {
+    id: number;
+    street: string;
+    city: string;
+    state: string;
+    zip: string;
+    schedule: {
+      dayOfWeek: string;
+      time: string;
+      season: string;
+    }[];
+    products: string[];
+    mapsLink: string;
+    name: string;
+  };
+}
+
 export const App: React.FC = () => {
   const [allMarkets, setMarkets] = useState<ApiMarkets['markets']>([]);
   const [marketDetails, setDetails] = useState<ApiMarkets['marketDetails']>([]);
+  const [selectedMarket, setSelectedMarket] = useState<OneDetail['oneDetail']>();
   const [zip, setZip] = useState<string>('');
   const [error, setError] = useState(0);
   const history = useHistory();
@@ -77,6 +96,10 @@ export const App: React.FC = () => {
     setDetails(data.marketDetails)
   }
 
+  const findSelectedMarket = (marketID: number) => {
+    setSelectedMarket(marketDetails.find(market => market.id === marketID))
+    history.push(`/markets/${marketID}`);
+  }
   return (
     <>
       <ScrollToTop />
@@ -84,21 +107,32 @@ export const App: React.FC = () => {
       <header>
         <h1>Freshly Fetched</h1>
       </header>
-      <main>
-        <Switch>
-          <Route
-            exact
-            path='/'
-            render={() => <Search getMarkets={getMarkets} />}
-          />
-          <Route
-            exact
-            path='/markets'
-            render={() => (
-              <Results
-                allMarkets={allMarkets}
-                marketDetails={marketDetails}
-                zip={zip}
+      <Switch>
+        <Route
+          exact
+          path='/'
+          render={() => <Search getMarkets={getMarkets} />}
+        />
+        <Route
+          exact
+          path='/markets'
+          render={() => (
+            <Results
+              allMarkets={allMarkets}
+              zip={zip}
+              findSelectedMarket={findSelectedMarket} 
+            />
+          )}
+        />
+        <Route
+          exact
+          path='/markets/:id'
+          render={({ match }) => {
+            const { id } = match.params;
+            return (
+              <Details
+                id={id}
+                selectedMarket={selectedMarket}
               />
             )}
           />

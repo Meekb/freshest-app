@@ -1,32 +1,21 @@
 import React from 'react';
 import { Card } from '../Card/Card';
 import './Results.css';
+
 interface ResultsProps {
   allMarkets: {
     id: number;
     distanceFromZip: number;
     marketName: string;
   }[];
-  marketDetails: {
-    street: string;
-    city: string;
-    state: string;
-    zip: string;
-    schedule: {
-      dayOfWeek: string;
-      time: string;
-      season: string;
-    }[];
-    products: string[];
-    mapsLink: string;
-  }[];
   zip: string;
+  findSelectedMarket: (marketID: number) => void;
 }
 
 export const Results: React.FC<ResultsProps> = ({
   allMarkets,
-  marketDetails,
-  zip
+  zip,
+  findSelectedMarket
 }) => {
   const makeCards = () => {
     return allMarkets.map(market => {
@@ -36,6 +25,7 @@ export const Results: React.FC<ResultsProps> = ({
           id={market.id}
           name={market.marketName}
           distance={market.distanceFromZip}
+          findSelectedMarket={findSelectedMarket}
         />
       );
     });

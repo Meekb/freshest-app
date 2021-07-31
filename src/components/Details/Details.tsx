@@ -5,7 +5,8 @@ import { NavLink } from 'react-router-dom';
 import previous from '../../images/previous.png';
 
 interface MarketProps {
-  markets: {
+  id: string,
+  selectedMarket?: {
     id: number;
     distanceFromZip: number;
     marketName: string;
@@ -22,37 +23,24 @@ interface MarketProps {
     }[];
     products: string[];
     mapsLink: string;
-  }[];
-  id: string;
+    name: string;
+  };
 }
 
-export const Details: React.FC<MarketProps> = ({
-  id,
-  markets,
-  marketDetails
-}) => {
-  const marketMatch = markets.filter(market => market.id === Number(id));
-  const detailsMatch = marketDetails.filter(market => {
-    const match = market.mapsLink
-      .split('%22')[1]
-      .includes(marketMatch[0].marketName.split(' ')[0]);
-    return match;
-  });
-
-  const nameMatch = marketMatch[0].marketName;
-  const detail = detailsMatch[0];
-  const openSeason = `Season: ${detail.schedule[0].season}`;
-  const daysAndTimes = `Open: ${detail.schedule[0].dayOfWeek} ${detail.schedule[0].time}`;
-  const productList = detail.products.map(prod => {
-    let key = Date.now() + prod.indexOf(prod);
-    return (
-      <div className='list' key={key}>
-        <ul>
-          <li key={key}>{prod}</li>
-        </ul>
-      </div>
-    );
-  });
+export const Details: React.FC<MarketProps> = ({ id, selectedMarket }) => {
+  const openSeason = `Season: ${selectedMarket?.schedule[0].season}`;
+  const daysAndTimes = `Open: ${selectedMarket?.schedule[0].dayOfWeek} ${selectedMarket?.schedule[0].time}`;
+  
+  const productList = selectedMarket?.products.map(prod => {
+    let key = Date.now() + prod.indexOf(prod)
+      return (
+        <div className='list' key={key}>
+          <ul>
+            <li key={key}>{prod}</li>
+          </ul>
+        </div>
+      );
+    });
 
   return (
     <div className='container'>
