@@ -48,7 +48,8 @@ export const cleanDetailsData = (response: {
     zip: addressArray[addressArray.length - 1],
     schedule: formattedSchedule,
     products: response.Products.split(';'),
-    mapsLink: response.GoogleLink
+    mapsLink: response.GoogleLink,
+    name: ''
   };
 };
 
@@ -65,6 +66,7 @@ export const addScheduleToMarkets = (marketDetails: {
   }[];
   products: string[];
   mapsLink: string;
+  name: string;
   }[],
   markets: {
     id: number;
@@ -78,6 +80,7 @@ export const addScheduleToMarkets = (marketDetails: {
     marketDetails.forEach(currentDetails => {
       if (market.id === currentDetails.id) {
         market.schedule = currentDetails.schedule
+        currentDetails.name = market.marketName
       }
     })
   })
