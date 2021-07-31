@@ -33,6 +33,7 @@ interface ApiMarkets {
     }[];
     products: string[];
     mapsLink: string;
+    name: string;
   }[];
 }
 
