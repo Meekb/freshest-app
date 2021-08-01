@@ -122,8 +122,9 @@ export const App: React.FC = () => {
           render={() => (
             <Results
               allMarkets={allMarkets}
+              findSelectedMarket={findSelectedMarket}
+              marketDetails={marketDetails} 
               zip={zip}
-              findSelectedMarket={findSelectedMarket} 
             />
           )}
         />

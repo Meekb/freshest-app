@@ -1,41 +1,24 @@
 import React, { useState } from "react";
+import './Filter.css'
 
 interface MarketIProps {
-  marketDetails: {
-    street: string;
-    city: string;
-    state: string;
-    zip: string;
-    schedule: {
-      dayOfWeek: string;
-      time: string;
-      season: string;
-    }[];
-  }
+  filterCards: (day: string) => any;
 }
-// : React.FC<MarketIProps>
 
-export const Filter = () => {
+export const Filter: React.FC<MarketIProps> = ({ filterCards }) => {
 
   const [day, setDay] = useState('');
 
-  const filterResults = () => {
-
-  }
-
   return (
-    // pass in the markets here? 
-    // logic out a filter that will filter the results for the days markets are open
-    // If a filter is selected, dynamically use that info to display only the results that include the selected day
-   // If no filter is selected, return all results
+    
   <div>
-    <label>Filter by day: </label>
+    <label className='day-filter-label'>Filter by day: </label>
     <select 
       id='day' 
       name='day' 
       onChange={e => setDay(e.target.value)}
     >
-      <option value='Sun'></option>
+      <option value='Any'>All</option>
       <option value='Sun'>Sun</option>
       <option value='Mon'>Mon</option>
       <option value='Tue'>Tue</option>
@@ -44,6 +27,7 @@ export const Filter = () => {
       <option value='Fri'>Fri</option>
       <option value='Sat'>Sat</option>
     </select>
+    <button className='filter-btn' onClick={() => filterCards(day)}>Filter</button>
   </div>
   );
 };

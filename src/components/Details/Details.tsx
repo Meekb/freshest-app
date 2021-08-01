@@ -30,9 +30,10 @@ export const Details: React.FC<SelectedMarketProps> = ({ selectedMarket, id }) =
 
   const productList = selectedMarket?.products.map(prod => {
     let key = Date.now() + prod.indexOf(prod)
+    
       return (
         <div className='list' key={key}>
-          <ul>  
+          <ul>
             <li key={key}>{prod}</li>
           </ul>
         </div>
