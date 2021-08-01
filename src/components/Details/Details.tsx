@@ -4,14 +4,10 @@ import pin from '../../images/location-pin.png';
 import { NavLink } from 'react-router-dom';
 import previous from '../../images/previous.png';
 
-interface MarketProps {
-  id: string,
+
+interface SelectedMarketProps {
   selectedMarket?: {
     id: number;
-    distanceFromZip: number;
-    marketName: string;
-  }[];
-  marketDetails: {
     street: string;
     city: string;
     state: string;
@@ -24,18 +20,19 @@ interface MarketProps {
     products: string[];
     mapsLink: string;
     name: string;
-  };
+  },
+  id: string;
 }
 
-export const Details: React.FC<MarketProps> = ({ id, selectedMarket }) => {
+export const Details: React.FC<SelectedMarketProps> = ({ selectedMarket, id }) => {
   const openSeason = `Season: ${selectedMarket?.schedule[0].season}`;
   const daysAndTimes = `Open: ${selectedMarket?.schedule[0].dayOfWeek} ${selectedMarket?.schedule[0].time}`;
-  
+
   const productList = selectedMarket?.products.map(prod => {
     let key = Date.now() + prod.indexOf(prod)
       return (
         <div className='list' key={key}>
-          <ul>
+          <ul>  
             <li key={key}>{prod}</li>
           </ul>
         </div>
@@ -53,17 +50,17 @@ export const Details: React.FC<MarketProps> = ({ id, selectedMarket }) => {
           />
         </NavLink>
         <div className='name-overlay'>
-          <h2 className='market-name'>{nameMatch}</h2>
+          <h2 className='market-name'>{selectedMarket?.name}</h2>
         </div>
       </div>
       <section className='market-details'>
         <section className='location-details'>
           <img src={pin} alt='location pin icon' className='pin-icon' />
-          <p>{detail.street}</p>
+          <p>{selectedMarket?.street}</p>
           <p>
-            {detail.city}, {detail.state} {detail.zip}
+            {selectedMarket?.city}, {selectedMarket?.state} {selectedMarket?.zip}
           </p>
-          <a href={detail.mapsLink} target='_blank' rel='noreferrer'>
+          <a href={selectedMarket?.mapsLink} target='_blank' rel='noreferrer'>
             Open in Google Maps
           </a>
         </section>
