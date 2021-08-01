@@ -31,14 +31,14 @@ export const Details: React.FC<SelectedMarketProps> = ({
 }) => {
 
   let [error, setError] = useState("")
-  let openSeason, daysAndTimes;
+  let openSeason;
  
   useEffect(() => {
     if (!selectedMarket?.schedule.length) {
       setError("sorry")
     } else {
       openSeason = `Season: ${selectedMarket?.schedule[0].season}`;
-      daysAndTimes = `Open: ${selectedMarket?.schedule[0].dayOfWeek} ${selectedMarket?.schedule[0].time}`;
+      //daysAndTimes = `Open: ${selectedMarket?.schedule[0].dayOfWeek} ${selectedMarket?.schedule[0].time}`;
     }
   }, [])
 
@@ -63,7 +63,6 @@ export const Details: React.FC<SelectedMarketProps> = ({
       </div>
     );
   });
-
 
   return (
     // !error && !marketDetails ? <h2>Loading...</h2> :
