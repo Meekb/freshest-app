@@ -82,14 +82,14 @@ export const App: React.FC = () => {
       getDetails(cleanedData);
       history.push('/markets');
     } catch (error) {
-      setErrorCode(error);
+      setErrorCode(error.message);
     }
   };
 
   const getDetails = (filteredMarkets: ApiMarkets['markets']) => {
     Promise.all(
       filteredMarkets.map(currentMarket => {
-        return getData(`mktDetail?id${currentMarket.id}`)
+        return getData(`mktDetail?id=${currentMarket.id}`)
           .then(response => checkForError(response))
           .then(data => cleanDetailsData(data.marketdetails, currentMarket.id));
       })

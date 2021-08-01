@@ -108,11 +108,8 @@ export const addScheduleToMarkets = (
 };
 
 export const checkForError = (response: Response) => {
-  if (!response.ok && response.status >= 500) {
-    throw "500";
-    //throw new Error(response.status.toString());
-  } else if (!response.ok) {
-    throw "Something went wrong, please try again!";
+  if (!response.ok) {
+    throw new Error(response.status.toString());
   } else {
     return response.json();
   }
