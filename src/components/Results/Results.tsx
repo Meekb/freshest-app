@@ -53,7 +53,7 @@ export const Results: React.FC<ResultsProps> = ({
   const filterCards = (day: string) => {
     const filteredByDay = marketDetails.filter(market => market.schedule[0].dayOfWeek.includes(day));
     
-    console.log(filteredByDay)
+    console.log(filteredByDay) //tested zip 64804, 
 
     filteredByDay.map(market => {
       return (
@@ -61,7 +61,7 @@ export const Results: React.FC<ResultsProps> = ({
           key={market.id}
           id={market.id}
           name={market.name}
-          distance={69}
+          distance={69} // distanceFromZip is only prop we dont share
           findSelectedMarket={findSelectedMarket}
         />
       );

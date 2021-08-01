@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import './Filter.css'
 
-interface MarketIProps {
-  filterCards: (day: string) => any;
+interface FilterIProps {
+  filterCards: (day: string) => {}[]; 
 }
 
-export const Filter: React.FC<MarketIProps> = ({ filterCards }) => {
+export const Filter: React.FC<FilterIProps> = ({ filterCards }) => {
 
   const [day, setDay] = useState('');
 
