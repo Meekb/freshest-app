@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card } from '../Card/Card';
 import { Filter } from '../Filter/Filter';
 import './Results.css';
@@ -29,7 +29,7 @@ interface ResultsProps {
     }[];
     products: string[];
     mapsLink: string;
-    name: string;
+    marketName: string;
   }[];
 }
 
@@ -43,7 +43,11 @@ export const Results: React.FC<ResultsProps> = ({
     useState<ResultsProps['marketDetails']>();
 
   const makeCards = (markets: any) => {
+    console.log('markets', markets);
     return markets.map((market: any) => {
+      console.log(market.name);
+      console.log(market.marketName);
+
       return (
         <Card
           key={market.id}
@@ -57,6 +61,9 @@ export const Results: React.FC<ResultsProps> = ({
   };
 
   const filterCards = (day: string) => {
+    if (day === 'Any') {
+      setFilteredResults(undefined);
+    }
     const filteredByDay = marketDetails.filter(market =>
       market.schedule[0].dayOfWeek.includes(day)
     );

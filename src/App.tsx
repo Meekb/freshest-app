@@ -38,7 +38,7 @@ interface ApiMarkets {
     }[];
     products: string[];
     mapsLink: string;
-    name: string;
+    marketName: string;
   }[];
 }
 
@@ -56,7 +56,7 @@ interface OneDetail {
     }[];
     products: string[];
     mapsLink: string;
-    name: string;
+    marketName: string;
   };
 }
 

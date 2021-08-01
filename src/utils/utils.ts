@@ -21,7 +21,7 @@ interface CleaningFunctions {
     }[];
     products: string[];
     mapsLink: string;
-    name: string;
+    marketName: string;
   }[];
   markets: {
     id: number;
@@ -87,7 +87,7 @@ export const cleanDetailsData = (
     schedule: formattedSchedule,
     products: response.Products.split(';'),
     mapsLink: response.GoogleLink,
-    name: ''
+    marketName: ''
   };
 };
 
@@ -99,7 +99,7 @@ export const addScheduleToMarkets = (
     marketDetails.forEach(currentDetails => {
       if (market.id === currentDetails.id) {
         market.schedule = currentDetails.schedule;
-        currentDetails.name = market.marketName;
+        currentDetails.marketName = market.marketName;
       }
     });
   });

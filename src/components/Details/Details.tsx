@@ -18,7 +18,7 @@ interface SelectedMarketProps {
     }[];
     products: string[];
     mapsLink: string;
-    name: string;
+    marketName: string;
   };
   id: string;
 }
@@ -62,7 +62,7 @@ export const Details: React.FC<SelectedMarketProps> = ({
           />
         </NavLink>
         <div className='name-overlay'>
-          <h2 className='market-name'>{selectedMarket?.name}</h2>
+          <h2 className='market-name'>{selectedMarket?.marketName}</h2>
         </div>
       </div>
       <section className='market-details'>
