@@ -27,17 +27,22 @@ interface SelectedMarketProps {
 export const Details: React.FC<SelectedMarketProps> = ({ selectedMarket, id }) => {
   const openSeason = `Season: ${selectedMarket?.schedule[0].season}`;
   
-  const daysAndTimes = selectedMarket?.schedule.map(sched => {
-    return <p>{sched.dayOfWeek} {sched.time}</p>
+  const daysAndTimes = selectedMarket?.schedule.map((sched, index) => {
+    return (
+      <div key={index}>
+        <ul className='day-list' >
+          <li>{sched.dayOfWeek} {sched.time}</li>
+        </ul>
+      </div>
+    )
   });
   
-  const productList = selectedMarket?.products.map(prod => {
-    let key = Date.now() + prod.indexOf(prod)
+  const productList = selectedMarket?.products.map((prod, index) => {
     
       return (
-        <div className='list' key={key}>
+        <div className='list' key={index}>
           <ul>
-            <li key={key}>{prod}</li>
+            <li key={index}>{prod}</li>
           </ul>
         </div>
       );
