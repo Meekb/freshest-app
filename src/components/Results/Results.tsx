@@ -42,25 +42,31 @@ export const Results: React.FC<ResultsProps> = ({
   marketDetails,
   zip
 }) => {
+
   let [error] = useState("")
   const [filteredResults, setFilteredResults] = useState<
     ResultsProps['allMarkets'] | undefined
   >();
 
-  const makeCards = (markets: any) => {
-    return markets.map((market: any) => {
-      return (
-        <Card
-          key={market.id}
-          id={market.id}
-          name={market.marketName}
-          distance={market.distanceFromZip}
-          findSelectedMarket={findSelectedMarket}
-        />
-      );
-    });
-  };
-
+  const makeCards = (markets:any) => {
+    let cards;
+    if (!allMarkets.length) {
+      return <h2>Sorry, no markets found for that zip code. Please try again!</h2> 
+    } else {
+      cards = allMarkets.map(market => {
+        return (
+          <Card
+            key={market.id}
+            id={market.id}
+            name={market.marketName}
+            distance={market.distanceFromZip}
+            findSelectedMarket={findSelectedMarket}
+          />
+        );
+      });
+      return cards
+    }
+  }
   const filterCards = (day: string) => {
     if (day === 'Any') {
       return setFilteredResults(undefined);
@@ -72,8 +78,6 @@ export const Results: React.FC<ResultsProps> = ({
   };
 
   return (
-    // !error && !marketDetails ? <h2>Loading...</h2> :
-    // error ? <Error errorCode={"something went wrong"} /> :
     <>
       <h2 className='results-near'>Results near {zip}</h2>
       <Filter filterCards={filterCards} />
