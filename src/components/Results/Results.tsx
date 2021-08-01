@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Card } from '../Card/Card';
 import { Filter } from '../Filter/Filter';
 import './Results.css';
@@ -16,21 +16,24 @@ interface ResultsProps {
   }[];
   zip: string;
   findSelectedMarket: (marketID: number) => void;
-  marketDetails: {
-    id: number;
-    street: string;
-    city: string;
-    state: string;
-    zip: string;
-    schedule: {
-      dayOfWeek: string;
-      time: string;
-      season: string;
-    }[];
-    products: string[];
-    mapsLink: string;
-    marketName: string;
+
+  marketDetails: Market[];
+}
+
+interface Market {
+  id: number;
+  street: string;
+  city: string;
+  state: string;
+  zip: string;
+  schedule: {
+    dayOfWeek: string;
+    time: string;
+    season: string;
   }[];
+  products: string[];
+  mapsLink: string;
+  marketName: string;
 }
 
 export const Results: React.FC<ResultsProps> = ({
@@ -39,8 +42,9 @@ export const Results: React.FC<ResultsProps> = ({
   marketDetails,
   zip
 }) => {
-  const [filteredResults, setFilteredResults] =
-    useState<ResultsProps['marketDetails']>();
+  const [filteredResults, setFilteredResults] = useState<
+    ResultsProps['allMarkets'] | undefined
+  >();
 
   const makeCards = (markets: any) => {
     return markets.map((market: any) => {
@@ -58,9 +62,9 @@ export const Results: React.FC<ResultsProps> = ({
 
   const filterCards = (day: string) => {
     if (day === 'Any') {
-      setFilteredResults(undefined);
+      return setFilteredResults(undefined);
     }
-    const filteredByDay = marketDetails.filter(market =>
+    const filteredByDay = allMarkets.filter(market =>
       market.schedule[0].dayOfWeek.includes(day)
     );
     setFilteredResults(filteredByDay);
