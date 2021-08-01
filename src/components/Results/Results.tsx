@@ -1,5 +1,4 @@
 import React from 'react';
-import { cleanMarketsData } from '../../utils/utils';
 import { Card } from '../Card/Card';
 import { Filter } from '../Filter/Filter';
 import './Results.css';

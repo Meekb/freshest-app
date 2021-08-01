@@ -17,7 +17,7 @@ export const Card: React.FC<CardProps> = ({
   findSelectedMarket
 }) => {
   return (
-    <NavLink to={`/markets/${id}`} key={id}>
+    <NavLink to={`/markets/${id}`} key={id} className='link'>
       <article
         className='market-card'
         id={`${id}`}
