@@ -97,9 +97,11 @@ export const App: React.FC = () => {
   }
 
   const findSelectedMarket = (marketID: number) => {
-    setSelectedMarket(marketDetails.find(market => market.id === marketID))
+    const selection = marketDetails.find(market => market.id === marketID)
+    setSelectedMarket(selection)
     history.push(`/markets/${marketID}`);
   }
+
   return (
     <>
       <ScrollToTop />
@@ -107,6 +109,7 @@ export const App: React.FC = () => {
       <header>
         <h1>Freshly Fetched</h1>
       </header>
+      <main>
       <Switch>
         <Route
           exact
@@ -124,30 +127,16 @@ export const App: React.FC = () => {
             />
           )}
         />
-        <Route
-          exact
-          path='/markets/:id'
-          render={({ match }) => {
-            const { id } = match.params;
-            return (
-              <Details
-                id={id}
-                selectedMarket={selectedMarket}
-              />
-            )}
-          />
           <Route
-            exact
             path='/markets/:id'
             render={({ match }) => {
               const { id } = match.params;
-              return (
+                return (
                 <Details
                   id={id}
-                  markets={allMarkets}
-                  marketDetails={marketDetails}
+                  selectedMarket={selectedMarket}
                 />
-              );
+              );  
             }}
           />
           {/* <Route
