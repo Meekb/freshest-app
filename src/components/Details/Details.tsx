@@ -4,6 +4,7 @@ import pin from '../../images/location-pin.png';
 import { NavLink } from 'react-router-dom';
 import previous from '../../images/previous.png';
 import { Error } from '../Error/Error';
+import { useEffect } from 'react';
 
 interface SelectedMarketProps {
   selectedMarket?: {
@@ -28,11 +29,18 @@ export const Details: React.FC<SelectedMarketProps> = ({
   selectedMarket,
   id
 }) => {
-  const openSeason = `Season: ${selectedMarket?.schedule[0].season}`;
 
   let [error, setError] = useState("")
-  // console.log("markets", markets)
-  // console.log("details", marketDetails)
+  let openSeason, daysAndTimes;
+ 
+  useEffect(() => {
+    if (!selectedMarket?.schedule.length) {
+      setError("sorry")
+    } else {
+      openSeason = `Season: ${selectedMarket?.schedule[0].season}`;
+      daysAndTimes = `Open: ${selectedMarket?.schedule[0].dayOfWeek} ${selectedMarket?.schedule[0].time}`;
+    }
+  }, [])
 
   const daysAndTimes = selectedMarket?.schedule.map((sched, index) => {
     return (
@@ -58,9 +66,10 @@ export const Details: React.FC<SelectedMarketProps> = ({
 
 
   return (
-    !error && !marketDetails ? <h2>Loading...</h2> :
-    error ? <h2>Uh oh! Market not found! Please try again.</h2> :
-    <div className='container'>
+    // !error && !marketDetails ? <h2>Loading...</h2> :
+    <>
+    {error && <h2>Uh oh! Market not found! Please try again.</h2>} 
+    {!error && <div className='container'>
       <div className='image-container'>
         <NavLink to='/markets'>
           <img
@@ -96,6 +105,7 @@ export const Details: React.FC<SelectedMarketProps> = ({
           {productList}
         </div>
       </section>
-    </div>
+    </div>}
+    </>
   );
 };
