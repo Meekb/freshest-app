@@ -13,7 +13,6 @@ import { Error } from './components/Error/Error';
 import { Search } from './components/Search/Search';
 import './App.css';
 import ScrollToTop from './scrollToTop';
-//import { useEffect } from 'react';
 
 interface ApiMarkets {
   markets: {
@@ -94,7 +93,7 @@ export const App: React.FC = () => {
   const getDetails = (filteredMarkets: ApiMarkets['markets']) => {
     Promise.all(
       filteredMarkets.map(currentMarket => {
-        return getData(`mktDetail?id=${currentMarket.id}`)
+        return getData(`mktDetail?id${currentMarket.id}`)
           .then(response => checkForError(response))
           .then(data => cleanDetailsData(data.marketdetails, currentMarket.id));
       })
@@ -153,7 +152,6 @@ export const App: React.FC = () => {
           render={() => (
             <Error errorCode={"page not found"} />
           )}
-
         />
         <Redirect 
           to="/page-not-found" 

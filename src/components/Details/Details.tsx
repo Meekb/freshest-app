@@ -31,7 +31,9 @@ export const Details: React.FC<SelectedMarketProps> = ({
 }) => {
   const openSeason = `Season: ${selectedMarket?.schedule[0].season}`;
 
-  let [error, setErrorCode] = useState("")
+  let [error, setError] = useState("")
+  // console.log("markets", markets)
+  // console.log("details", marketDetails)
 
   const daysAndTimes = selectedMarket?.schedule.map((sched, index) => {
     return (
