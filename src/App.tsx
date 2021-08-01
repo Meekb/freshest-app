@@ -97,7 +97,6 @@ export const App: React.FC = () => {
   }
 
   const findSelectedMarket = (marketID: number) => {
-    console.log(marketID)
     const selection = marketDetails.find(market => market.id === marketID)
     setSelectedMarket(selection)
     history.push(`/markets/${marketID}`);
