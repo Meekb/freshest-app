@@ -1,6 +1,43 @@
+interface CleaningFunctions {
+  response: { id: string; marketname: string }[];
+  distance: number;
+  detailsResponse: {
+    GoogleLink: string;
+    Address: string;
+    Schedule: string;
+    Products: string;
+  };
+  id: number;
+  marketDetails: {
+    id: number;
+    street: string;
+    city: string;
+    state: string;
+    zip: string;
+    schedule: {
+      dayOfWeek: string;
+      time: string;
+      season: string;
+    }[];
+    products: string[];
+    mapsLink: string;
+    name: string;
+  }[];
+  markets: {
+    id: number;
+    distanceFromZip: number;
+    marketName: string;
+    schedule: {
+      dayOfWeek: string;
+      time: string;
+      season: string;
+    }[];
+  }[];
+}
+
 export const cleanMarketsData = (
-  response: { id: string; marketname: string }[],
-  distance: number
+  response: CleaningFunctions['response'],
+  distance: CleaningFunctions['distance']
 ) => {
   let mapped = response.map(currentMarket => {
     let name = currentMarket.marketname.split(' ');
@@ -19,13 +56,8 @@ export const cleanMarketsData = (
 };
 
 export const cleanDetailsData = (
-  response: {
-    GoogleLink: string;
-    Address: string;
-    Schedule: string;
-    Products: string;
-  },
-  id: number
+  response: CleaningFunctions['detailsResponse'],
+  id: CleaningFunctions['id']
 ) => {
   let addressArray = response.Address.split(', ');
   let schedule = response.Schedule.replaceAll('<br>', '').split(';');
@@ -60,31 +92,8 @@ export const cleanDetailsData = (
 };
 
 export const addScheduleToMarkets = (
-  marketDetails: {
-    id: number;
-    street: string;
-    city: string;
-    state: string;
-    zip: string;
-    schedule: {
-      dayOfWeek: string;
-      time: string;
-      season: string;
-    }[];
-    products: string[];
-    mapsLink: string;
-    name: string;
-  }[],
-  markets: {
-    id: number;
-    distanceFromZip: number;
-    marketName: string;
-    schedule: {
-      dayOfWeek: string;
-      time: string;
-      season: string;
-    }[];
-  }[]
+  marketDetails: CleaningFunctions['marketDetails'],
+  markets: CleaningFunctions['markets']
 ) => {
   markets.forEach(market => {
     marketDetails.forEach(currentDetails => {
