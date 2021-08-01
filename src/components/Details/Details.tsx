@@ -22,7 +22,6 @@ interface SelectedMarketProps {
     marketName: string;
   };
   id: string;
-  errorCode?: string;
 }
 
 export const Details: React.FC<SelectedMarketProps> = ({
@@ -59,7 +58,8 @@ export const Details: React.FC<SelectedMarketProps> = ({
 
 
   return (
-    error ? <Error errorCode={"something went wrong"} /> :
+    !error && !marketDetails ? <h2>Loading...</h2> :
+    error ? <h2>Uh oh! Market not found! Please try again.</h2> :
     <div className='container'>
       <div className='image-container'>
         <NavLink to='/markets'>

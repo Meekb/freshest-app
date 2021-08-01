@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import { Card } from '../Card/Card';
 import { Filter } from '../Filter/Filter';
 import './Results.css';
-import { Error } from '../Error/Error';
-
 
 interface ResultsProps {
   allMarkets: {

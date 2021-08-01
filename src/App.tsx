@@ -64,10 +64,6 @@ interface OneDetail {
   errorCode?: string;
 }
 
-interface ErrorProps {
-  errorCode?: string;
-}
-
 export const App: React.FC = () => {
   const [allMarkets, setMarkets] = useState<ApiMarkets['markets']>([]);
   const [marketDetails, setDetails] = useState<ApiMarkets['marketDetails']>([]);
@@ -158,7 +154,7 @@ export const App: React.FC = () => {
         />
         </Switch>
       </main>
-}
+    }
     </>
   );
 };

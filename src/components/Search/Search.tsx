@@ -6,15 +6,12 @@ import './Search.css';
 
 interface getMarkets {
   getMarkets: (zip: string, distance: number) => Promise<void>;
-  errorCode?: string;
 }
 
-export const Search: React.FC<getMarkets> = ({ getMarkets, errorCode }) => {
+export const Search: React.FC<getMarkets> = ({ getMarkets }) => {
   let [zip, setZip] = useState('');
   let [isValid, setIsValid] = useState(false);
   let [distance, setDistance] = useState(15);
-  let [error, setErrorCode] = useState(errorCode)
-  
 
   useEffect(() => {
     const validZip = new RegExp('^[0-9]{5}(?:-[0-9]{4})?$');
@@ -30,8 +27,6 @@ export const Search: React.FC<getMarkets> = ({ getMarkets, errorCode }) => {
   ) => {
     e.preventDefault();
     getMarkets(zip, distance);
-    setErrorCode(errorCode)
-    console.log("searchy", typeof errorCode, errorCode)
     setZip('');
     setDistance(15);
   };
