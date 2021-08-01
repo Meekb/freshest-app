@@ -82,6 +82,10 @@
   padding: 1em;
 }
 
+.day-list {
+  list-style-type: none;
+}
+
 .location-details p {
   margin-bottom: 0.25em;
 }

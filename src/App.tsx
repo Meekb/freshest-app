@@ -19,7 +19,11 @@ interface ApiMarkets {
     id: number;
     distanceFromZip: number;
     marketName: string;
-    schedule: {};
+    schedule: {
+      dayOfWeek: string;
+      time: string;
+      season: string;
+    }[];
   }[];
   marketDetails: {
     id: number;
@@ -34,7 +38,7 @@ interface ApiMarkets {
     }[];
     products: string[];
     mapsLink: string;
-    name: string;
+    marketName: string;
   }[];
 }
 
@@ -52,14 +56,15 @@ interface OneDetail {
     }[];
     products: string[];
     mapsLink: string;
-    name: string;
+    marketName: string;
   };
 }
 
 export const App: React.FC = () => {
   const [allMarkets, setMarkets] = useState<ApiMarkets['markets']>([]);
   const [marketDetails, setDetails] = useState<ApiMarkets['marketDetails']>([]);
-  const [selectedMarket, setSelectedMarket] = useState<OneDetail['oneDetail']>();
+  const [selectedMarket, setSelectedMarket] =
+    useState<OneDetail['oneDetail']>();
   const [zip, setZip] = useState<string>('');
   const [error, setError] = useState(0);
   const history = useHistory();
@@ -68,8 +73,7 @@ export const App: React.FC = () => {
     setZip(zip);
     try {
       let response = await getData(`zipSearch?zip=${zip}`);
-      checkForError(response);
-      let data = await response.json();
+      let data = await checkForError(response);
       let cleanedData = cleanMarketsData(data.results, distance);
       getDetails(cleanedData);
       history.push('/markets');
@@ -83,24 +87,22 @@ export const App: React.FC = () => {
       filteredMarkets.map(currentMarket => {
         return getData(`mktDetail?id=${currentMarket.id}`)
           .then(response => checkForError(response))
-          .then(response => response.json())
-          .then(data => cleanDetailsData(data.marketdetails, currentMarket.id))
+          .then(data => cleanDetailsData(data.marketdetails, currentMarket.id));
       })
     )
-    .then(data => addScheduleToMarkets(data, filteredMarkets))
-    .then(completeData => setData(completeData))
+      .then(data => addScheduleToMarkets(data, filteredMarkets))
+      .then(completeData => setData(completeData));
   };
 
   const setData = (data: ApiMarkets) => {
-    setMarkets(data.markets)
-    setDetails(data.marketDetails)
-  }
+    setMarkets(data.markets);
+    setDetails(data.marketDetails);
+  };
 
   const findSelectedMarket = (marketID: number) => {
-    const selection = marketDetails.find(market => market.id === marketID)
-    setSelectedMarket(selection)
-    history.push(`/markets/${marketID}`);
-  }
+    const selection = marketDetails.find(market => market.id === marketID);
+    setSelectedMarket(selection);
+  };
 
   return (
     <>
@@ -110,33 +112,29 @@ export const App: React.FC = () => {
         <h1>Freshly Fetched</h1>
       </header>
       <main>
-      <Switch>
-        <Route
-          exact
-          path='/'
-          render={() => <Search getMarkets={getMarkets} />}
-        />
-        <Route
-          exact
-          path='/markets'
-          render={() => (
-            <Results
-              allMarkets={allMarkets}
-              zip={zip}
-              findSelectedMarket={findSelectedMarket} 
-            />
-          )}
-        />
+        <Switch>
+          <Route
+            exact
+            path='/'
+            render={() => <Search getMarkets={getMarkets} />}
+          />
+          <Route
+            exact
+            path='/markets'
+            render={() => (
+              <Results
+                allMarkets={allMarkets}
+                findSelectedMarket={findSelectedMarket}
+                marketDetails={marketDetails}
+                zip={zip}
+              />
+            )}
+          />
           <Route
             path='/markets/:id'
             render={({ match }) => {
               const { id } = match.params;
-                return (
-                <Details
-                  id={id}
-                  selectedMarket={selectedMarket}
-                />
-              );  
+              return <Details id={id} selectedMarket={selectedMarket} />;
             }}
           />
           {/* <Route

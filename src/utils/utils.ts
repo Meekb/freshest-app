@@ -1,5 +1,44 @@
+interface CleaningFunctions {
+  response: { id: string; marketname: string }[];
+  distance: number;
+  detailsResponse: {
+    GoogleLink: string;
+    Address: string;
+    Schedule: string;
+    Products: string;
+  };
+  id: number;
+  marketDetails: {
+    id: number;
+    street: string;
+    city: string;
+    state: string;
+    zip: string;
+    schedule: {
+      dayOfWeek: string;
+      time: string;
+      season: string;
+    }[];
+    products: string[];
+    mapsLink: string;
+    marketName: string;
+  }[];
+  markets: {
+    id: number;
+    distanceFromZip: number;
+    marketName: string;
+    schedule: {
+      dayOfWeek: string;
+      time: string;
+      season: string;
+    }[];
+  }[];
+}
+
 export const cleanMarketsData = (
-  response: { id: string; marketname: string }[], distance: number ) => {
+  response: CleaningFunctions['response'],
+  distance: CleaningFunctions['distance']
+) => {
   let mapped = response.map(currentMarket => {
     let name = currentMarket.marketname.split(' ');
     let distance = parseInt(name[0]);
@@ -7,28 +46,27 @@ export const cleanMarketsData = (
       id: parseInt(currentMarket.id),
       distanceFromZip: Math.round(distance * 10) / 10,
       marketName: name.slice(1).join(' '),
-      schedule: {}
+      schedule: [{ dayOfWeek: '', time: '', season: '' }]
     };
   });
 
-  return mapped.filter(currentMarket => currentMarket.distanceFromZip < distance);
+  return mapped.filter(
+    currentMarket => currentMarket.distanceFromZip < distance
+  );
 };
 
-export const cleanDetailsData = (response: {
-    GoogleLink: string;
-    Address: string;
-    Schedule: string;
-    Products: string;
-  }, id: number) => {
-
+export const cleanDetailsData = (
+  response: CleaningFunctions['detailsResponse'],
+  id: CleaningFunctions['id']
+) => {
   let addressArray = response.Address.split(', ');
-  let schedule = response.Schedule.replaceAll('<br>','').split(';');
+  let schedule = response.Schedule.replaceAll('<br>', '').split(';');
   schedule.pop();
 
   let formattedSchedule = schedule.map(currentDay => {
     let season;
     if (currentDay.split(': ')[0].slice(0, -4).length < 24) {
-      season = 'bad format';
+      season = 'No information available';
     } else {
       season = currentDay.split(': ')[0].slice(0, -4);
     }
@@ -49,49 +87,30 @@ export const cleanDetailsData = (response: {
     schedule: formattedSchedule,
     products: response.Products.split(';'),
     mapsLink: response.GoogleLink,
-    name: ''
+    marketName: ''
   };
 };
 
-export const addScheduleToMarkets = (marketDetails: {
-  id: number;
-  street: string;
-  city: string;
-  state: string;
-  zip: string;
-  schedule: {
-    dayOfWeek: string;
-    time: string;
-    season: string;
-  }[];
-  products: string[];
-  mapsLink: string;
-  name: string;
-  }[],
-  markets: {
-    id: number;
-    distanceFromZip: number;
-    marketName: string;
-    schedule: {};
-  }[]
-  ) => {
-
+export const addScheduleToMarkets = (
+  marketDetails: CleaningFunctions['marketDetails'],
+  markets: CleaningFunctions['markets']
+) => {
   markets.forEach(market => {
     marketDetails.forEach(currentDetails => {
       if (market.id === currentDetails.id) {
-        market.schedule = currentDetails.schedule
-        currentDetails.name = market.marketName
+        market.schedule = currentDetails.schedule;
+        currentDetails.marketName = market.marketName;
       }
-    })
-  })
+    });
+  });
 
-  return { markets: markets, marketDetails: marketDetails }
-}
+  return { markets: markets, marketDetails: marketDetails };
+};
 
 export const checkForError = (response: Response) => {
   if (!response.ok) {
     throw new Error(response.statusText);
   } else {
-    return response;
+    return response.json();
   }
 };

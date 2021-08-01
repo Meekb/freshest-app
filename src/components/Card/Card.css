@@ -20,6 +20,10 @@
   width: 50%;
   height: 100%;
 }
+.link {
+  text-decoration: none;
+  color: black;
+}
 
 .market-info {
   width: 50%;
