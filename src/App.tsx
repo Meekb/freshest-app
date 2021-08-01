@@ -71,6 +71,7 @@ export const App: React.FC = () => {
     useState<OneDetail['oneDetail']>();
   const [zip, setZip] = useState<string>('');
   const [errorCode, setErrorCode] = useState<ApiMarkets["errorCode"]>("");
+  const [ loading, setLoading ] = useState<boolean>(true);
   const history = useHistory();
 
   const getMarkets = async (zip: string, distance: number) => {
@@ -94,14 +95,17 @@ export const App: React.FC = () => {
           .then(data => cleanDetailsData(data.marketdetails, currentMarket.id));
       })
     )
-      .then(data => addScheduleToMarkets(data, filteredMarkets))
-      .then(completeData => setData(completeData));
+    .then(data => addScheduleToMarkets(data, filteredMarkets))
+    .then(completeData => setData(completeData))
   };
 
   const setData = (data: ApiMarkets) => {
-    setMarkets(data.markets);
-    setDetails(data.marketDetails);
-  };
+    setMarkets(data.markets)
+    setDetails(data.marketDetails)
+    if (!allMarkets.length) {
+      setLoading(false)
+    }
+  }
 
   const findSelectedMarket = (marketID: number) => {
     const selection = marketDetails.find(market => market.id === marketID);
@@ -131,6 +135,7 @@ export const App: React.FC = () => {
               zip={zip}
               findSelectedMarket={findSelectedMarket} 
               marketDetails={marketDetails}
+              loading={loading} 
             />
           )}
         />

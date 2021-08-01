@@ -16,8 +16,8 @@ interface ResultsProps {
   }[];
   zip: string;
   findSelectedMarket: (marketID: number) => void;
-
   marketDetails: Market[];
+  loading: boolean;
 }
 
 interface Market {
@@ -40,7 +40,8 @@ export const Results: React.FC<ResultsProps> = ({
   allMarkets,
   findSelectedMarket,
   marketDetails,
-  zip
+  zip,
+  loading
 }) => {
 
   let [error] = useState("")
@@ -50,8 +51,11 @@ export const Results: React.FC<ResultsProps> = ({
 
   const makeCards = (markets:any) => {
     let cards;
-    if (!allMarkets.length) {
-      return <h2>Sorry, no markets found for that zip code. Please try again!</h2> 
+    let message;
+    if (loading) {
+      return message = <h2>Loading...</h2> 
+    } else if (!loading && !allMarkets.length) {
+      return message = <h2>Sorry, no markets found for that zip code. Please try again!</h2> 
     } else {
       cards = allMarkets.map(market => {
         return (
@@ -76,7 +80,6 @@ export const Results: React.FC<ResultsProps> = ({
     );
     setFilteredResults(filteredByDay);
   };
-
   return (
     <>
       <h2 className='results-near'>Results near {zip}</h2>
