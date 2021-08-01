@@ -26,8 +26,13 @@ interface SelectedMarketProps {
 
 export const Details: React.FC<SelectedMarketProps> = ({ selectedMarket, id }) => {
   const openSeason = `Season: ${selectedMarket?.schedule[0].season}`;
-  const daysAndTimes = `Open: ${selectedMarket?.schedule[0].dayOfWeek} ${selectedMarket?.schedule[0].time}`;
+  
+  const daysAndTimes = `${selectedMarket?.schedule[0].dayOfWeek} ${selectedMarket?.schedule[0].time}`;
 
+  const multipleDays = selectedMarket?.schedule.map(sched => {
+    return <p>{sched.dayOfWeek} {sched.time}</p>
+  })
+  
   const productList = selectedMarket?.products.map(prod => {
     let key = Date.now() + prod.indexOf(prod)
     
@@ -68,6 +73,8 @@ export const Details: React.FC<SelectedMarketProps> = ({ selectedMarket, id }) =
         <div className='schedule'>
           <h3>Season and Schedule:</h3>
           <p>{openSeason}</p>
+          <p>Open Days and Times:</p>
+          {selectedMarket?.schedule.length && <p>{multipleDays}</p>}
           <p>{daysAndTimes}</p>
         </div>
         <div className='prod-list'>

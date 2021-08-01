@@ -52,8 +52,6 @@ export const Results: React.FC<ResultsProps> = ({
 
   const filterCards = (day: string) => {
     const filteredByDay = marketDetails.filter(market => market.schedule[0].dayOfWeek.includes(day));
-    
-    console.log(filteredByDay) //tested zip 64804, 
 
     filteredByDay.map(market => {
       return (
