@@ -9,6 +9,11 @@ interface ResultsProps {
     id: number;
     distanceFromZip: number;
     marketName: string;
+    schedule: {
+      dayOfWeek: string;
+      season: string;
+      time: string;
+    }[];
   }[];
   zip: string;
   findSelectedMarket: (marketID: number) => void;
@@ -29,7 +34,6 @@ interface ResultsProps {
   }[];
 }
 
-
 export const Results: React.FC<ResultsProps> = ({
   allMarkets,
   findSelectedMarket,
@@ -37,6 +41,7 @@ export const Results: React.FC<ResultsProps> = ({
   zip
 }) => {
   const makeCards = () => {
+    console.log(allMarkets);
     return allMarkets.map(market => {
       return (
         <Card
@@ -51,7 +56,9 @@ export const Results: React.FC<ResultsProps> = ({
   };
 
   const filterCards = (day: string) => {
-    const filteredByDay = marketDetails.filter(market => market.schedule[0].dayOfWeek.includes(day));
+    const filteredByDay = marketDetails.filter(market =>
+      market.schedule[0].dayOfWeek.includes(day)
+    );
 
     filteredByDay.map(market => {
       return (
@@ -66,12 +73,12 @@ export const Results: React.FC<ResultsProps> = ({
     });
 
     return filteredByDay;
-  }
+  };
 
   return (
     <>
       <h2 className='results-near'>Results near {zip}</h2>
-      <Filter filterCards={filterCards} />  
+      <Filter filterCards={filterCards} />
       <div className='results-container'>{makeCards()}</div>
     </>
   );

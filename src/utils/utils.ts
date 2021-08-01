@@ -1,5 +1,7 @@
 export const cleanMarketsData = (
-  response: { id: string; marketname: string }[], distance: number ) => {
+  response: { id: string; marketname: string }[],
+  distance: number
+) => {
   let mapped = response.map(currentMarket => {
     let name = currentMarket.marketname.split(' ');
     let distance = parseInt(name[0]);
@@ -7,22 +9,26 @@ export const cleanMarketsData = (
       id: parseInt(currentMarket.id),
       distanceFromZip: Math.round(distance * 10) / 10,
       marketName: name.slice(1).join(' '),
-      schedule: {}
+      schedule: [{ dayOfWeek: '', time: '', season: '' }]
     };
   });
 
-  return mapped.filter(currentMarket => currentMarket.distanceFromZip < distance);
+  return mapped.filter(
+    currentMarket => currentMarket.distanceFromZip < distance
+  );
 };
 
-export const cleanDetailsData = (response: {
+export const cleanDetailsData = (
+  response: {
     GoogleLink: string;
     Address: string;
     Schedule: string;
     Products: string;
-  }, id: number) => {
-
+  },
+  id: number
+) => {
   let addressArray = response.Address.split(', ');
-  let schedule = response.Schedule.replaceAll('<br>','').split(';');
+  let schedule = response.Schedule.replaceAll('<br>', '').split(';');
   schedule.pop();
 
   let formattedSchedule = schedule.map(currentDay => {
@@ -53,45 +59,49 @@ export const cleanDetailsData = (response: {
   };
 };
 
-export const addScheduleToMarkets = (marketDetails: {
-  id: number;
-  street: string;
-  city: string;
-  state: string;
-  zip: string;
-  schedule: {
-    dayOfWeek: string;
-    time: string;
-    season: string;
-  }[];
-  products: string[];
-  mapsLink: string;
-  name: string;
+export const addScheduleToMarkets = (
+  marketDetails: {
+    id: number;
+    street: string;
+    city: string;
+    state: string;
+    zip: string;
+    schedule: {
+      dayOfWeek: string;
+      time: string;
+      season: string;
+    }[];
+    products: string[];
+    mapsLink: string;
+    name: string;
   }[],
   markets: {
     id: number;
     distanceFromZip: number;
     marketName: string;
-    schedule: {};
+    schedule: {
+      dayOfWeek: string;
+      time: string;
+      season: string;
+    }[];
   }[]
-  ) => {
-
+) => {
   markets.forEach(market => {
     marketDetails.forEach(currentDetails => {
       if (market.id === currentDetails.id) {
-        market.schedule = currentDetails.schedule
-        currentDetails.name = market.marketName
+        market.schedule = currentDetails.schedule;
+        currentDetails.name = market.marketName;
       }
-    })
-  })
+    });
+  });
 
-  return { markets: markets, marketDetails: marketDetails }
-}
+  return { markets: markets, marketDetails: marketDetails };
+};
 
 export const checkForError = (response: Response) => {
   if (!response.ok) {
     throw new Error(response.statusText);
   } else {
-    return response;
+    return response.json();
   }
 };
