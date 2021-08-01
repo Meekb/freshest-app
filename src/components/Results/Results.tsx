@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Card } from '../Card/Card';
 import { Filter } from '../Filter/Filter';
 import './Results.css';
@@ -39,8 +39,11 @@ export const Results: React.FC<ResultsProps> = ({
   marketDetails,
   zip
 }) => {
-  const makeCards = () => {
-    return allMarkets.map(market => {
+  const [filteredResults, setFilteredResults] =
+    useState<ResultsProps['marketDetails']>();
+
+  const makeCards = (markets: any) => {
+    return markets.map((market: any) => {
       return (
         <Card
           key={market.id}
@@ -57,27 +60,19 @@ export const Results: React.FC<ResultsProps> = ({
     const filteredByDay = marketDetails.filter(market =>
       market.schedule[0].dayOfWeek.includes(day)
     );
-
-    filteredByDay.map(market => {
-      return (
-        <Card
-          key={market.id}
-          id={market.id}
-          name={market.name}
-          distance={69} // distanceFromZip is only prop we dont share
-          findSelectedMarket={findSelectedMarket}
-        />
-      );
-    });
-
-    return filteredByDay;
+    setFilteredResults(filteredByDay);
   };
 
   return (
     <>
       <h2 className='results-near'>Results near {zip}</h2>
       <Filter filterCards={filterCards} />
-      <div className='results-container'>{makeCards()}</div>
+      {!filteredResults && (
+        <div className='results-container'>{makeCards(allMarkets)}</div>
+      )}
+      {filteredResults && (
+        <div className='results-container'>{makeCards(filteredResults)}</div>
+      )}
     </>
   );
 };
