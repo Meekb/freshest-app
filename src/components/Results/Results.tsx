@@ -41,7 +41,6 @@ export const Results: React.FC<ResultsProps> = ({
   zip
 }) => {
   const makeCards = () => {
-    console.log(allMarkets);
     return allMarkets.map(market => {
       return (
         <Card

@@ -66,7 +66,7 @@ export const cleanDetailsData = (
   let formattedSchedule = schedule.map(currentDay => {
     let season;
     if (currentDay.split(': ')[0].slice(0, -4).length < 24) {
-      season = 'bad format';
+      season = 'No information available';
     } else {
       season = currentDay.split(': ')[0].slice(0, -4);
     }
