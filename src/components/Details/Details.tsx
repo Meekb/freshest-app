@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { NavLink } from 'react-router-dom';
 import './Details.css';
 import pin from '../../images/location-pin.png';
-import { NavLink } from 'react-router-dom';
 import previous from '../../images/previous.png';
-import { useEffect } from 'react';
 import { SelectedMarketProps } from '../../types';
 
 export const Details: React.FC<SelectedMarketProps> = ({

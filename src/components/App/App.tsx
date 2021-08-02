@@ -12,8 +12,8 @@ import { Details } from '../Details/Details';
 import { Error } from '../Error/Error';
 import { Search } from '../Search/Search';
 import './App.css';
-import ScrollToTop from './utils/scrollToTop';
-import { OneDetail, ApiMarkets } from './types';
+import ScrollToTop from '../../utils/scrollToTop';
+import { OneDetail, ApiMarkets } from '../../types';
 
 export const App: React.FC = () => {
   const [allMarkets, setMarkets] = useState<ApiMarkets['markets']>([]);
