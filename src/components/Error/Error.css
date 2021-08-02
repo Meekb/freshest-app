@@ -3,3 +3,35 @@
   text-align: center;
   margin: 5em;
 }
+
+button {
+  margin: 1em;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1em;
+  padding: 0.5em;
+  background-color: #fff9e9;
+  border: 2px solid #ee922f;
+  border-radius: 3em;
+  text-decoration: none;
+  color: black;
+  cursor: pointer;
+}
+
+.page-not-found {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.fake-404-message {
+  color: white;
+  font-size: 1em;
+  padding: 0.5em;
+  font-weight: 500;
+  color: #8a0000;
+  border: 1px solid #8a0000;
+  background-color: #e58f8f;
+  width: 15em;
+  margin-right: auto;
+  margin-left: auto;
+}

@@ -8,8 +8,7 @@ export const Results: React.FC<ResultsProps> = ({
   allMarkets,
   findSelectedMarket,
   marketDetails,
-  zip,
-  loading
+  zip
 }) => {
   let [error, setError] = useState('');
   const [filteredResults, setFilteredResults] = useState<
@@ -49,16 +48,14 @@ export const Results: React.FC<ResultsProps> = ({
       <h2 className='results-near'>Results near {zip}</h2>
       <Filter filterCards={filterCards} />
 
-      {loading && allMarkets.length && !error && (
-        <h2 className='error-msg'>Loading...</h2>
-      )}
-
       {!filteredResults && (
         <div className='results-container'>{makeCards(allMarkets)}</div>
       )}
+
       {filteredResults && !error && (
         <div className='results-container'>{makeCards(filteredResults)}</div>
       )}
+
       {!!error && <h2>{error}</h2>}
     </>
   );

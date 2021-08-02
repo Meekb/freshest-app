@@ -24,16 +24,16 @@ export const App: React.FC = () => {
   const history = useHistory();
 
   const getMarkets = async (zip: string, distance: number) => {
+    setErrorCode('');
     setLoading(true);
     setZip(zip);
     try {
       let data = await getData(`zipSearch?zip=${zip}`);
       let cleanedData = cleanMarketsData(data.results, distance);
-      getDetails(cleanedData);
+      await getDetails(cleanedData);
       history.push('/markets');
     } catch (error) {
       setErrorCode(error.message);
-      history.push('/markets');
     }
   };
 
@@ -71,9 +71,15 @@ export const App: React.FC = () => {
           <h1>Freshly Fetched</h1>
         </Link>
       </header>
-      {!!errorCode?.length && <Error errorCode={errorCode} />}
-      {!errorCode?.length && (
-        <main>
+      <main>
+        {(errorCode === 'fake404' || errorCode === 'fakeDetails404') && (
+          <>
+            <Search getMarkets={getMarkets} />
+            <Error errorCode={errorCode} />
+          </>
+        )}
+
+        {!errorCode?.length && (
           <Switch>
             <Route
               exact
@@ -89,7 +95,6 @@ export const App: React.FC = () => {
                   zip={zip}
                   findSelectedMarket={findSelectedMarket}
                   marketDetails={marketDetails}
-                  loading={loading}
                 />
               )}
             />
@@ -108,8 +113,8 @@ export const App: React.FC = () => {
             />
             <Redirect to='/page-not-found' />
           </Switch>
-        </main>
-      )}
+        )}
+      </main>
     </>
   );
 };

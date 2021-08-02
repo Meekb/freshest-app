@@ -80,6 +80,12 @@ export const checkForError = async (response: Response) => {
     if (data.results && data.results[0].id === 'Error') {
       throw new Error('fake404');
     }
+    if (
+      !data.results &&
+      data.marketdetails.Address === 'Error, market not found.'
+    ) {
+      throw new Error('fakeDetails404');
+    }
     return data;
   }
 };

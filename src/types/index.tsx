@@ -42,7 +42,6 @@ export interface ResultsProps {
   zip: string;
   findSelectedMarket: (marketID: number) => void;
   marketDetails: Market[];
-  loading: boolean;
 }
 
 export interface SelectedMarketProps {
