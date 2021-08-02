@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useEffect } from 'react';
+import { Error } from '../Error/Error';
+
 import './Search.css';
 
 interface getMarkets {
@@ -26,10 +28,11 @@ export const Search: React.FC<getMarkets> = ({ getMarkets }) => {
     e.preventDefault();
     getMarkets(zip, distance);
     setZip('');
-    setDistance(0);
+    setDistance(15);
   };
 
   return (
+    <>
     <form className='zip-search'>
       <label className='zip-label'>
         Enter your zip code to find markets near you:{' '}
@@ -62,5 +65,6 @@ export const Search: React.FC<getMarkets> = ({ getMarkets }) => {
         Find Markets
       </button>
     </form>
+    </>
   );
 };

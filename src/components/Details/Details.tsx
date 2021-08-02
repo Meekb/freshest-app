@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Details.css';
 import pin from '../../images/location-pin.png';
 import { NavLink } from 'react-router-dom';
 import previous from '../../images/previous.png';
+import { useEffect } from 'react';
 
 interface SelectedMarketProps {
   selectedMarket?: {
@@ -23,23 +24,22 @@ interface SelectedMarketProps {
   id: string;
 }
 
-export const Details: React.FC<SelectedMarketProps> = ({
-  selectedMarket,
-  id
+export const Details: React.FC<SelectedMarketProps> = ({ 
+  selectedMarket, 
+  id 
 }) => {
-  const openSeason = `Season: ${selectedMarket?.schedule[0].season}`;
-
-  const daysAndTimes = selectedMarket?.schedule.map((sched, index) => {
-    return (
-      <div key={index}>
-        <ul className='day-list'>
-          <li>
-            {sched.dayOfWeek} {sched.time}
-          </li>
-        </ul>
-      </div>
-    );
-  });
+  let [error, setError] = useState("");
+  let [ openSeason, setOpenSeason ] = useState("")
+  let [ daysAndTimes, setDaysAndTimes ] = useState("")
+ 
+  useEffect(() => {
+    if (!selectedMarket?.schedule.length) {
+      setError("Uh oh! Market not found! Please try again.")
+    } else {
+      setOpenSeason(`${selectedMarket?.schedule[0].season}`);
+      setDaysAndTimes(`${selectedMarket?.schedule[0].dayOfWeek} ${selectedMarket?.schedule[0].time}`);
+    }
+  }, [])
 
   const productList = selectedMarket?.products.map((prod, index) => {
     return (
@@ -52,7 +52,10 @@ export const Details: React.FC<SelectedMarketProps> = ({
   });
 
   return (
-    <div className='container'>
+    <>
+    {(!error && !openSeason) && <h2>Loading...</h2>}
+    {error && <h2>{error}</h2>} 
+    {!error &&  openSeason && <div className='container'>
       <div className='image-container'>
         <NavLink to='/markets'>
           <img
@@ -88,6 +91,7 @@ export const Details: React.FC<SelectedMarketProps> = ({
           {productList}
         </div>
       </section>
-    </div>
+    </div>}
+    </>
   );
 };

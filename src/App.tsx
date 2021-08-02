@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Route, Switch, useHistory } from 'react-router';
+import { Route, Switch, useHistory, Link, Redirect } from 'react-router-dom';
 import { getData } from './utils/apiCalls';
 import {
   cleanMarketsData,
@@ -40,6 +40,8 @@ interface ApiMarkets {
     mapsLink: string;
     marketName: string;
   }[];
+  //zip: string;
+  errorCode?: string;
 }
 
 interface OneDetail {
@@ -58,6 +60,8 @@ interface OneDetail {
     mapsLink: string;
     marketName: string;
   };
+  zip: string;
+  errorCode?: string;
 }
 
 export const App: React.FC = () => {
@@ -66,38 +70,42 @@ export const App: React.FC = () => {
   const [selectedMarket, setSelectedMarket] =
     useState<OneDetail['oneDetail']>();
   const [zip, setZip] = useState<string>('');
-  const [error, setError] = useState(0);
+  const [errorCode, setErrorCode] = useState<ApiMarkets["errorCode"]>("");
+  const [ loading, setLoading ] = useState<boolean>(true);
   const history = useHistory();
 
   const getMarkets = async (zip: string, distance: number) => {
     setZip(zip);
     try {
+      setLoading(true)
       let response = await getData(`zipSearch?zip=${zip}`);
       let data = await checkForError(response);
       let cleanedData = cleanMarketsData(data.results, distance);
       getDetails(cleanedData);
       history.push('/markets');
     } catch (error) {
-      setError(error);
+      setErrorCode(error.message);
+      history.push('/markets');
     }
   };
 
   const getDetails = (filteredMarkets: ApiMarkets['markets']) => {
     Promise.all(
-      filteredMarkets.map(currentMarket => {
-        return getData(`mktDetail?id=${currentMarket.id}`)
-          .then(response => checkForError(response))
-          .then(data => cleanDetailsData(data.marketdetails, currentMarket.id));
+      filteredMarkets.map(async currentMarket => {
+        const response = await getData(`mktDetail?id=${currentMarket.id}`);
+        const data = await checkForError(response);
+        return cleanDetailsData(data.marketdetails, currentMarket.id);
       })
     )
-      .then(data => addScheduleToMarkets(data, filteredMarkets))
-      .then(completeData => setData(completeData));
+    .then(data => addScheduleToMarkets(data, filteredMarkets))
+    .then(completeData => setData(completeData))
   };
 
   const setData = (data: ApiMarkets) => {
-    setMarkets(data.markets);
-    setDetails(data.marketDetails);
-  };
+    setMarkets(data.markets)
+    setDetails(data.marketDetails)
+    setLoading(false)
+  }
 
   const findSelectedMarket = (marketID: number) => {
     const selection = marketDetails.find(market => market.id === marketID);
@@ -107,29 +115,31 @@ export const App: React.FC = () => {
   return (
     <>
       <ScrollToTop />
-
       <header>
-        <h1>Freshly Fetched</h1>
+       <Link to='/' style={{ textDecoration: 'none' }} onClick={() => setErrorCode('')}><h1>Freshly Fetched</h1></Link> 
       </header>
-      <main>
+      {!!errorCode?.length && <Error errorCode={errorCode} />}
+    {!errorCode?.length && <main>
         <Switch>
-          <Route
-            exact
-            path='/'
-            render={() => <Search getMarkets={getMarkets} />}
-          />
-          <Route
-            exact
-            path='/markets'
-            render={() => (
-              <Results
-                allMarkets={allMarkets}
-                findSelectedMarket={findSelectedMarket}
-                marketDetails={marketDetails}
-                zip={zip}
-              />
-            )}
-          />
+        <Route
+          exact
+          path='/'
+          render={() => <Search getMarkets={getMarkets} />}
+        />
+        <Route
+          exact
+          path='/markets'
+          render={() => (
+            <Results
+              allMarkets={allMarkets}
+              zip={zip}
+              findSelectedMarket={findSelectedMarket} 
+              marketDetails={marketDetails}
+              loading={loading} 
+            />
+          )}
+        />
+
           <Route
             path='/markets/:id'
             render={({ match }) => {
@@ -137,13 +147,18 @@ export const App: React.FC = () => {
               return <Details id={id} selectedMarket={selectedMarket} />;
             }}
           />
-          {/* <Route
+          <Route
+          exact path="/page-not-found"
           render={() => (
-            <Error error="Sorry that page doesn't exist, do you want to go home?" />
+            <Error errorCode={"page not found"} />
           )}
-        /> */}
+        />
+        <Redirect 
+          to="/page-not-found" 
+        />
         </Switch>
       </main>
+    }
     </>
   );
 };

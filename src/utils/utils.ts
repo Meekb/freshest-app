@@ -107,10 +107,14 @@ export const addScheduleToMarkets = (
   return { markets: markets, marketDetails: marketDetails };
 };
 
-export const checkForError = (response: Response) => {
+export const checkForError = async (response: Response) => {
   if (!response.ok) {
-    throw new Error(response.statusText);
-  } else {
-    return response.json();
+    throw new Error(response.status.toString());
+  } else if (response.ok) {
+    let data = await response.json();
+    if (data.results && data.results[0].id === "Error") {
+      throw new Error('Sorry, no markets found for that zip code. Please try again!')
+    }
+    return data
   }
 };
