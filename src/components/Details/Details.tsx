@@ -36,22 +36,10 @@ export const Details: React.FC<SelectedMarketProps> = ({
     if (!selectedMarket?.schedule.length) {
       setError("Uh oh! Market not found! Please try again.")
     } else {
-      openSeason = `Season: ${selectedMarket?.schedule[0].season}`;
-      //daysAndTimes = `Open: ${selectedMarket?.schedule[0].dayOfWeek} ${selectedMarket?.schedule[0].time}`;
+      setOpenSeason(`${selectedMarket?.schedule[0].season}`);
+      setDaysAndTimes(`${selectedMarket?.schedule[0].dayOfWeek} ${selectedMarket?.schedule[0].time}`);
     }
   }, [])
-
-  const daysAndTimesFunc = selectedMarket?.schedule.map((sched, index) => {
-    return (
-      <div key={index}>
-        <ul className='day-list'>
-          <li>
-            {sched.dayOfWeek} {sched.time}
-          </li>
-        </ul>
-      </div>
-    );
-  });
 
   const productList = selectedMarket?.products.map((prod, index) => {
     return (

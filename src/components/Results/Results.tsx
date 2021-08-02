@@ -44,7 +44,7 @@ export const Results: React.FC<ResultsProps> = ({
   loading
 }) => {
 
-  let [error] = useState("")
+  let [error, setError] = useState("")
   const [filteredResults, setFilteredResults] = useState<
     ResultsProps['allMarkets'] | undefined
   >();
@@ -57,7 +57,7 @@ export const Results: React.FC<ResultsProps> = ({
     } else if (!loading && !allMarkets.length) {
       return message = <h2>Sorry, no markets found for that zip code. Please try again!</h2> 
     } else {
-      cards = allMarkets.map(market => {
+      cards = markets.map((market:any) => {
         return (
           <Card
             key={market.id}
@@ -72,12 +72,16 @@ export const Results: React.FC<ResultsProps> = ({
     }
   }
   const filterCards = (day: string) => {
+    setError("")
     if (day === 'Any') {
       return setFilteredResults(undefined);
     }
     const filteredByDay = allMarkets.filter(market =>
       market.schedule[0].dayOfWeek.includes(day)
     );
+    if (!filteredByDay.length) {
+      setError("Sorry, no markets are open on this day!")
+    }
     setFilteredResults(filteredByDay);
   };
   return (
@@ -87,9 +91,10 @@ export const Results: React.FC<ResultsProps> = ({
       {!filteredResults && (
         <div className='results-container'>{makeCards(allMarkets)}</div>
       )}
-      {filteredResults && (
+      {filteredResults && !error &&(
         <div className='results-container'>{makeCards(filteredResults)}</div>
       )}
+      {error && <h2>{error}</h2>}
     </>
   );
 };
