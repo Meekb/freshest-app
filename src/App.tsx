@@ -77,6 +77,7 @@ export const App: React.FC = () => {
   const getMarkets = async (zip: string, distance: number) => {
     setZip(zip);
     try {
+      setLoading(true)
       let response = await getData(`zipSearch?zip=${zip}`);
       let data = await checkForError(response);
       let cleanedData = cleanMarketsData(data.results, distance);
@@ -84,15 +85,16 @@ export const App: React.FC = () => {
       history.push('/markets');
     } catch (error) {
       setErrorCode(error.message);
+      history.push('/markets');
     }
   };
 
   const getDetails = (filteredMarkets: ApiMarkets['markets']) => {
     Promise.all(
-      filteredMarkets.map(currentMarket => {
-        return getData(`mktDetail?id=${currentMarket.id}`)
-          .then(response => checkForError(response))
-          .then(data => cleanDetailsData(data.marketdetails, currentMarket.id));
+      filteredMarkets.map(async currentMarket => {
+        const response = await getData(`mktDetail?id=${currentMarket.id}`);
+        const data = await checkForError(response);
+        return cleanDetailsData(data.marketdetails, currentMarket.id);
       })
     )
     .then(data => addScheduleToMarkets(data, filteredMarkets))
@@ -102,9 +104,7 @@ export const App: React.FC = () => {
   const setData = (data: ApiMarkets) => {
     setMarkets(data.markets)
     setDetails(data.marketDetails)
-    if (!allMarkets.length) {
-      setLoading(false)
-    }
+    setLoading(false)
   }
 
   const findSelectedMarket = (marketID: number) => {
@@ -116,7 +116,7 @@ export const App: React.FC = () => {
     <>
       <ScrollToTop />
       <header>
-       <Link to='/' style={{ textDecoration: 'none' }}><h1>Freshly Fetched</h1></Link> 
+       <Link to='/' style={{ textDecoration: 'none' }} onClick={() => setErrorCode('')}><h1>Freshly Fetched</h1></Link> 
       </header>
       {!!errorCode?.length && <Error errorCode={errorCode} />}
     {!errorCode?.length && <main>
