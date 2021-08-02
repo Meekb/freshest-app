@@ -9,8 +9,8 @@ export const Filter: React.FC<FilterIProps> = ({ filterCards }) => {
   const [day, setDay] = useState('');
 
   return (
-    <div>
-      <label className='day-filter-label'>Filter by day: </label>
+    <div className='filter-container'>
+      <label className='label'>Filter by day: </label>
       <select
         id='day'
         name='day'

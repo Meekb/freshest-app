@@ -70,14 +70,14 @@ export const App: React.FC = () => {
   const [selectedMarket, setSelectedMarket] =
     useState<OneDetail['oneDetail']>();
   const [zip, setZip] = useState<string>('');
-  const [errorCode, setErrorCode] = useState<ApiMarkets["errorCode"]>("");
-  const [ loading, setLoading ] = useState<boolean>(true);
+  const [errorCode, setErrorCode] = useState<ApiMarkets['errorCode']>('');
+  const [loading, setLoading] = useState<boolean>(false);
   const history = useHistory();
 
   const getMarkets = async (zip: string, distance: number) => {
+    setLoading(true);
     setZip(zip);
     try {
-      setLoading(true)
       let response = await getData(`zipSearch?zip=${zip}`);
       let data = await checkForError(response);
       let cleanedData = cleanMarketsData(data.results, distance);
@@ -97,15 +97,15 @@ export const App: React.FC = () => {
         return cleanDetailsData(data.marketdetails, currentMarket.id);
       })
     )
-    .then(data => addScheduleToMarkets(data, filteredMarkets))
-    .then(completeData => setData(completeData))
+      .then(data => addScheduleToMarkets(data, filteredMarkets))
+      .then(completeData => setData(completeData));
   };
 
   const setData = (data: ApiMarkets) => {
-    setMarkets(data.markets)
-    setDetails(data.marketDetails)
-    setLoading(false)
-  }
+    setMarkets(data.markets);
+    setDetails(data.marketDetails);
+    setLoading(false);
+  };
 
   const findSelectedMarket = (marketID: number) => {
     const selection = marketDetails.find(market => market.id === marketID);
@@ -116,49 +116,53 @@ export const App: React.FC = () => {
     <>
       <ScrollToTop />
       <header>
-       <Link to='/' style={{ textDecoration: 'none' }} onClick={() => setErrorCode('')}><h1>Freshly Fetched</h1></Link> 
+        <Link
+          to='/'
+          style={{ textDecoration: 'none' }}
+          onClick={() => setErrorCode('')}
+        >
+          <h1>Freshly Fetched</h1>
+        </Link>
       </header>
       {!!errorCode?.length && <Error errorCode={errorCode} />}
-    {!errorCode?.length && <main>
-        <Switch>
-        <Route
-          exact
-          path='/'
-          render={() => <Search getMarkets={getMarkets} />}
-        />
-        <Route
-          exact
-          path='/markets'
-          render={() => (
-            <Results
-              allMarkets={allMarkets}
-              zip={zip}
-              findSelectedMarket={findSelectedMarket} 
-              marketDetails={marketDetails}
-              loading={loading} 
+      {!errorCode?.length && (
+        <main>
+          <Switch>
+            <Route
+              exact
+              path='/'
+              render={() => <Search getMarkets={getMarkets} />}
             />
-          )}
-        />
+            <Route
+              exact
+              path='/markets'
+              render={() => (
+                <Results
+                  allMarkets={allMarkets}
+                  zip={zip}
+                  findSelectedMarket={findSelectedMarket}
+                  marketDetails={marketDetails}
+                  loading={loading}
+                />
+              )}
+            />
 
-          <Route
-            path='/markets/:id'
-            render={({ match }) => {
-              const { id } = match.params;
-              return <Details id={id} selectedMarket={selectedMarket} />;
-            }}
-          />
-          <Route
-          exact path="/page-not-found"
-          render={() => (
-            <Error errorCode={"page not found"} />
-          )}
-        />
-        <Redirect 
-          to="/page-not-found" 
-        />
-        </Switch>
-      </main>
-    }
+            <Route
+              path='/markets/:id'
+              render={({ match }) => {
+                const { id } = match.params;
+                return <Details id={id} selectedMarket={selectedMarket} />;
+              }}
+            />
+            <Route
+              exact
+              path='/page-not-found'
+              render={() => <Error errorCode={'page not found'} />}
+            />
+            <Redirect to='/page-not-found' />
+          </Switch>
+        </main>
+      )}
     </>
   );
 };

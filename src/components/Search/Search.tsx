@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import { useEffect } from 'react';
-import { Error } from '../Error/Error';
-
 import './Search.css';
 
 interface getMarkets {
@@ -33,38 +31,38 @@ export const Search: React.FC<getMarkets> = ({ getMarkets }) => {
 
   return (
     <>
-    <form className='zip-search'>
-      <label className='zip-label'>
-        Enter your zip code to find markets near you:{' '}
-      </label>
-      <input
-        type='number'
-        name='zip'
-        placeholder='Zip Code'
-        value={zip}
-        onChange={e => setZip(e.target.value)}
-      />
-      <label className='label' htmlFor='distance'>
-        Choose Distance:
-      </label>
-      <select
-        id='distance'
-        name='distance'
-        onChange={e => setDistance(Number(e.target.value))}
-      >
-        <option value={15}>15 miles</option>
-        <option value={25}>25 miles</option>
-        <option value={50}>50 miles</option>
-      </select>
-      <button
-        type='submit'
-        className='find-btn'
-        onClick={e => onSubmitSearch(e)}
-        disabled={!isValid}
-      >
-        Find Markets
-      </button>
-    </form>
+      <form className='zip-search'>
+        <label className='zip-label'>
+          Enter your zip code to find markets near you:{' '}
+        </label>
+        <input
+          type='number'
+          name='zip'
+          placeholder='Zip Code'
+          value={zip}
+          onChange={e => setZip(e.target.value)}
+        />
+        <label className='label' htmlFor='distance'>
+          Choose Distance:
+        </label>
+        <select
+          id='distance'
+          name='distance'
+          onChange={e => setDistance(Number(e.target.value))}
+        >
+          <option value={15}>15 miles</option>
+          <option value={25}>25 miles</option>
+          <option value={50}>50 miles</option>
+        </select>
+        <button
+          type='submit'
+          className='find-btn'
+          onClick={e => onSubmitSearch(e)}
+          disabled={!isValid}
+        >
+          Find Markets
+        </button>
+      </form>
     </>
   );
 };

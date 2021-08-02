@@ -112,9 +112,9 @@ export const checkForError = async (response: Response) => {
     throw new Error(response.status.toString());
   } else if (response.ok) {
     let data = await response.json();
-    if (data.results && data.results[0].id === "Error") {
-      throw new Error('Sorry, no markets found for that zip code. Please try again!')
+    if (data.results && data.results[0].id === 'Error') {
+      throw new Error('fake404');
     }
-    return data
+    return data;
   }
 };

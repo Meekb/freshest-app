@@ -27,7 +27,8 @@ select {
   border: 1px solid #4f784c;
 }
 
-.find-btn {
+.find-btn,
+.filter-btn {
   margin: 1em;
   font-family: 'Montserrat', sans-serif;
   font-size: 1em;
@@ -40,7 +41,8 @@ select {
   cursor: pointer;
 }
 
-.find-btn:hover {
+.find-btn:hover,
+.filter-btn:hover {
   background-color: #ee922f;
   border: 2px solid #fff9e9;
 }
@@ -62,10 +64,4 @@ select {
   select {
     width: 6em;
   }
-}
-
-@media screen and (min-width: 900px) {
-}
-
-@media screen and (min-width: 1200px) {
 }
