@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
 import { Route, Switch, useHistory, Link, Redirect } from 'react-router-dom';
-import { getData } from './utils/apiCalls';
+import { getData } from '../../utils/apiCalls';
 import {
   cleanMarketsData,
   cleanDetailsData,
   addScheduleToMarkets,
   checkForError
-} from './utils/utils';
-import { Results } from './components/Results/Results';
-import { Details } from './components/Details/Details';
-import { Error } from './components/Error/Error';
-import { Search } from './components/Search/Search';
+} from '../../utils/utils';
+import { Results } from '../Results/Results';
+import { Details } from '../Details/Details';
+import { Error } from '../Error/Error';
+import { Search } from '../Search/Search';
 import './App.css';
-import ScrollToTop from './scrollToTop';
+import ScrollToTop from '../scrollToTop/scrollToTop';
 
 interface ApiMarkets {
   markets: {
