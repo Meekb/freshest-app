@@ -13,15 +13,14 @@ import { Error } from '../Error/Error';
 import { Search } from '../Search/Search';
 import './App.css';
 import ScrollToTop from '../../utils/scrollToTop';
-import { OneDetail, ApiMarkets } from '../../types';
+import { ApiMarkets, Market } from '../../types';
 
 export const App: React.FC = () => {
   const [allMarkets, setMarkets] = useState<ApiMarkets['markets']>([]);
   const [marketDetails, setDetails] = useState<ApiMarkets['marketDetails']>([]);
-  const [selectedMarket, setSelectedMarket] =
-    useState<OneDetail['oneDetail']>();
+  const [selectedMarket, setSelectedMarket] = useState<Market>();
   const [zip, setZip] = useState<string>('');
-  const [errorCode, setErrorCode] = useState<ApiMarkets['errorCode']>('');
+  const [errorCode, setErrorCode] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
   const history = useHistory();
 
