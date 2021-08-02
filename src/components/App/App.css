@@ -35,3 +35,15 @@ header h1 {
 h1:hover {
   border-bottom: 2px solid #fff9e9;
 }
+
+.loading-icon {
+  height: 3em;
+  width: 3em;
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  height: 5em;
+  width: 100%;
+}

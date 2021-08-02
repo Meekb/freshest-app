@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { NavLink } from 'react-router-dom';
 import './Details.css';
 import pin from '../../images/location-pin.png';
@@ -9,20 +9,20 @@ export const Details: React.FC<SelectedMarketProps> = ({
   selectedMarket,
   id
 }) => {
-  let [error, setError] = useState('');
-  let [openSeason, setOpenSeason] = useState('');
-  let [daysAndTimes, setDaysAndTimes] = useState('');
-
-  useEffect(() => {
-    if (!selectedMarket?.schedule.length) {
-      setError('Uh oh! Market not found! Please try again.');
-    } else {
-      setOpenSeason(`${selectedMarket?.schedule[0].season}`);
-      setDaysAndTimes(
-        `${selectedMarket?.schedule[0].dayOfWeek} ${selectedMarket?.schedule[0].time}`
-      );
-    }
-  }, [selectedMarket?.schedule]);
+  const daysAndTimes = selectedMarket?.schedule.map((sched, index) => {
+    return (
+      <div key={index}>
+        <ul className='day-list schedule'>
+          <li>
+            <h3>Season:</h3>
+            {sched.season}
+            <h3>Open Days and Times:</h3>
+            {sched.dayOfWeek} {sched.time}
+          </li>
+        </ul>
+      </div>
+    );
+  });
 
   const productList = selectedMarket?.products.map((prod, index) => {
     return (
@@ -36,51 +36,38 @@ export const Details: React.FC<SelectedMarketProps> = ({
 
   return (
     <>
-      {!error && !openSeason && <h2>Loading...</h2>}
-      {error && <h2>{error}</h2>}
-      {!error && openSeason && (
-        <div className='container'>
-          <div className='image-container'>
-            <NavLink to='/markets'>
-              <img
-                src={previous}
-                alt='go back to previous'
-                className='previous-icon'
-              />
-            </NavLink>
-            <div className='name-overlay'>
-              <h2 className='market-name'>{selectedMarket?.marketName}</h2>
-            </div>
+      <div className='container'>
+        <div className='image-container'>
+          <NavLink to='/markets'>
+            <img
+              src={previous}
+              alt='go back to previous'
+              className='previous-icon'
+            />
+          </NavLink>
+          <div className='name-overlay'>
+            <h2 className='market-name'>{selectedMarket?.marketName}</h2>
           </div>
-          <section className='market-details'>
-            <section className='location-details'>
-              <img src={pin} alt='location pin icon' className='pin-icon' />
-              <p>{selectedMarket?.street}</p>
-              <p>
-                {selectedMarket?.city}, {selectedMarket?.state}{' '}
-                {selectedMarket?.zip}
-              </p>
-              <a
-                href={selectedMarket?.mapsLink}
-                target='_blank'
-                rel='noreferrer'
-              >
-                Open in Google Maps
-              </a>
-            </section>
-            <div className='schedule'>
-              <h3>Season and Schedule:</h3>
-              {openSeason}
-              <h3>Open Days and Times:</h3>
-              {daysAndTimes}
-            </div>
-            <div className='prod-list'>
-              <h3>Products available at this market:</h3>
-              {productList}
-            </div>
-          </section>
         </div>
-      )}
+        <section className='market-details'>
+          <section className='location-details'>
+            <img src={pin} alt='location pin icon' className='pin-icon' />
+            <p>{selectedMarket?.street}</p>
+            <p>
+              {selectedMarket?.city}, {selectedMarket?.state}{' '}
+              {selectedMarket?.zip}
+            </p>
+            <a href={selectedMarket?.mapsLink} target='_blank' rel='noreferrer'>
+              Open in Google Maps
+            </a>
+          </section>
+          {daysAndTimes}
+          <div className='prod-list'>
+            <h3>Products available at this market:</h3>
+            {productList}
+          </div>
+        </section>
+      </div>
     </>
   );
 };

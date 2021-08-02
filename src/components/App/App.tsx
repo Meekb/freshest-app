@@ -13,6 +13,7 @@ import { Search } from '../Search/Search';
 import './App.css';
 import ScrollToTop from '../../utils/scrollToTop';
 import { ApiMarkets, Market } from '../../types';
+import loadingIcon from '../../images/loading.jpg';
 
 export const App: React.FC = () => {
   const [allMarkets, setMarkets] = useState<ApiMarkets['markets']>([]);
@@ -72,6 +73,11 @@ export const App: React.FC = () => {
         </Link>
       </header>
       <main>
+        {loading && (
+          <div className='loading-container'>
+            <img src={loadingIcon} alt='loading gif' className='loading-icon' />{' '}
+          </div>
+        )}
         {(errorCode === 'fake404' || errorCode === 'fakeDetails404') && (
           <>
             <Search getMarkets={getMarkets} />
