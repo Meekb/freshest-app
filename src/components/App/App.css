@@ -6,19 +6,23 @@
 
 main {
   width: 100vw;
-  min-height: 100vh;
+  min-height: 90vh;
   font-family: 'Montserrat', sans-serif;
   box-sizing: border-box;
 }
 
 html {
   min-height: 100vh;
-  background-color: #41623e;
+  background: #41623e url('../../images/background-veggies.png') no-repeat fixed
+    center;
 }
 
 header {
   background-color: #41623e;
+  border-bottom: 4px solid #4f784c;
   position: sticky;
+  top: 0;
+  width: 100%;
   z-index: 1;
   height: 5em;
   display: flex;

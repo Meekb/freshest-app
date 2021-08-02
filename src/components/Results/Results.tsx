@@ -44,9 +44,11 @@ export const Results: React.FC<ResultsProps> = ({
   };
 
   return (
-    <>
-      <h2 className='results-near'>Results near {zip}</h2>
-      <Filter filterCards={filterCards} />
+    <div>
+      <div className='results-text-container'>
+        <h2 className='results-near'>Results near {zip}</h2>
+        <Filter filterCards={filterCards} />
+      </div>
 
       {!filteredResults && (
         <div className='results-container'>{makeCards(allMarkets)}</div>
@@ -57,6 +59,6 @@ export const Results: React.FC<ResultsProps> = ({
       )}
 
       {!!error && <h2>{error}</h2>}
-    </>
+    </div>
   );
 };
