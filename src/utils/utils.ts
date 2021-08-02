@@ -1,39 +1,4 @@
-interface CleaningFunctions {
-  response: { id: string; marketname: string }[];
-  distance: number;
-  detailsResponse: {
-    GoogleLink: string;
-    Address: string;
-    Schedule: string;
-    Products: string;
-  };
-  id: number;
-  marketDetails: {
-    id: number;
-    street: string;
-    city: string;
-    state: string;
-    zip: string;
-    schedule: {
-      dayOfWeek: string;
-      time: string;
-      season: string;
-    }[];
-    products: string[];
-    mapsLink: string;
-    marketName: string;
-  }[];
-  markets: {
-    id: number;
-    distanceFromZip: number;
-    marketName: string;
-    schedule: {
-      dayOfWeek: string;
-      time: string;
-      season: string;
-    }[];
-  }[];
-}
+import { CleaningFunctions } from '../types';
 
 export const cleanMarketsData = (
   response: CleaningFunctions['response'],
