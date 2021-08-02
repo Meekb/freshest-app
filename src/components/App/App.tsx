@@ -4,8 +4,7 @@ import { getData } from '../../utils/apiCalls';
 import {
   cleanMarketsData,
   cleanDetailsData,
-  addScheduleToMarkets,
-  checkForError
+  addScheduleToMarkets
 } from '../../utils/utils';
 import { Results } from '../Results/Results';
 import { Details } from '../Details/Details';
@@ -28,8 +27,7 @@ export const App: React.FC = () => {
     setLoading(true);
     setZip(zip);
     try {
-      let response = await getData(`zipSearch?zip=${zip}`);
-      let data = await checkForError(response);
+      let data = await getData(`zipSearch?zip=${zip}`);
       let cleanedData = cleanMarketsData(data.results, distance);
       getDetails(cleanedData);
       history.push('/markets');
@@ -39,22 +37,21 @@ export const App: React.FC = () => {
     }
   };
 
-  const getDetails = (filteredMarkets: ApiMarkets['markets']) => {
-    Promise.all(
-      filteredMarkets.map(async currentMarket => {
-        const response = await getData(`mktDetail?id=${currentMarket.id}`);
-        const data = await checkForError(response);
-        return cleanDetailsData(data.marketdetails, currentMarket.id);
-      })
-    )
-      .then(data => addScheduleToMarkets(data, filteredMarkets))
-      .then(completeData => setData(completeData));
-  };
-
-  const setData = (data: ApiMarkets) => {
-    setMarkets(data.markets);
-    setDetails(data.marketDetails);
-    setLoading(false);
+  const getDetails = async (filteredMarkets: ApiMarkets['markets']) => {
+    try {
+      let data = await Promise.all(
+        filteredMarkets.map(async currentMarket => {
+          const data = await getData(`mktDetail?id=${currentMarket.id}`);
+          return cleanDetailsData(data.marketdetails, currentMarket.id);
+        })
+      );
+      let completeData = await addScheduleToMarkets(data, filteredMarkets);
+      setMarkets(completeData.markets);
+      setDetails(completeData.marketDetails);
+      setLoading(false);
+    } catch (error) {
+      setErrorCode(error.message);
+    }
   };
 
   const findSelectedMarket = (marketID: number) => {
