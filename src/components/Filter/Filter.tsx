@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
 import './Filter.css';
-
-interface FilterIProps {
-  filterCards: (day: string) => void;
-}
+import { FilterIProps } from '../../types';
 
 export const Filter: React.FC<FilterIProps> = ({ filterCards }) => {
   const [day, setDay] = useState('');

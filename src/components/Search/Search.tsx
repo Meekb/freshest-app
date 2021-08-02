@@ -1,10 +1,7 @@
 import React, { useState } from 'react';
 import { useEffect } from 'react';
 import './Search.css';
-
-interface getMarkets {
-  getMarkets: (zip: string, distance: number) => Promise<void>;
-}
+import { getMarkets } from '../../types';
 
 export const Search: React.FC<getMarkets> = ({ getMarkets }) => {
   let [zip, setZip] = useState('');

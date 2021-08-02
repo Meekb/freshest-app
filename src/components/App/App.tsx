@@ -12,57 +12,8 @@ import { Details } from '../Details/Details';
 import { Error } from '../Error/Error';
 import { Search } from '../Search/Search';
 import './App.css';
-import ScrollToTop from '../scrollToTop/scrollToTop';
-
-interface ApiMarkets {
-  markets: {
-    id: number;
-    distanceFromZip: number;
-    marketName: string;
-    schedule: {
-      dayOfWeek: string;
-      time: string;
-      season: string;
-    }[];
-  }[];
-  marketDetails: {
-    id: number;
-    street: string;
-    city: string;
-    state: string;
-    zip: string;
-    schedule: {
-      dayOfWeek: string;
-      time: string;
-      season: string;
-    }[];
-    products: string[];
-    mapsLink: string;
-    marketName: string;
-  }[];
-  //zip: string;
-  errorCode?: string;
-}
-
-interface OneDetail {
-  oneDetail: {
-    id: number;
-    street: string;
-    city: string;
-    state: string;
-    zip: string;
-    schedule: {
-      dayOfWeek: string;
-      time: string;
-      season: string;
-    }[];
-    products: string[];
-    mapsLink: string;
-    marketName: string;
-  };
-  zip: string;
-  errorCode?: string;
-}
+import ScrollToTop from './utils/scrollToTop';
+import { OneDetail, ApiMarkets } from './types';
 
 export const App: React.FC = () => {
   const [allMarkets, setMarkets] = useState<ApiMarkets['markets']>([]);

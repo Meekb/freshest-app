@@ -1,9 +1,6 @@
 import React from 'react';
 import './Error.css';
-
-interface ErrorProps {
-  errorCode?: string;
-}
+import { ErrorProps } from '../../types';
 
 export const Error: React.FC<ErrorProps> = ({ errorCode }) => {
   return (

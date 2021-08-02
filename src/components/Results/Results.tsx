@@ -2,40 +2,7 @@ import React, { useState } from 'react';
 import { Card } from '../Card/Card';
 import { Filter } from '../Filter/Filter';
 import './Results.css';
-
-interface ResultsProps {
-  allMarkets: LessDetailedMarket[];
-  zip: string;
-  findSelectedMarket: (marketID: number) => void;
-  marketDetails: Market[];
-  loading: boolean;
-}
-
-interface LessDetailedMarket {
-  id: number;
-  distanceFromZip: number;
-  marketName: string;
-  schedule: {
-    dayOfWeek: string;
-    season: string;
-    time: string;
-  }[];
-}
-interface Market {
-  id: number;
-  street: string;
-  city: string;
-  state: string;
-  zip: string;
-  schedule: {
-    dayOfWeek: string;
-    time: string;
-    season: string;
-  }[];
-  products: string[];
-  mapsLink: string;
-  marketName: string;
-}
+import { ResultsProps, LessDetailedMarket } from '../../types';
 
 export const Results: React.FC<ResultsProps> = ({
   allMarkets,

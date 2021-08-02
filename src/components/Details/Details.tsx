@@ -4,25 +4,7 @@ import pin from '../../images/location-pin.png';
 import { NavLink } from 'react-router-dom';
 import previous from '../../images/previous.png';
 import { useEffect } from 'react';
-
-interface SelectedMarketProps {
-  selectedMarket?: {
-    id: number;
-    street: string;
-    city: string;
-    state: string;
-    zip: string;
-    schedule: {
-      dayOfWeek: string;
-      time: string;
-      season: string;
-    }[];
-    products: string[];
-    mapsLink: string;
-    marketName: string;
-  };
-  id: string;
-}
+import { SelectedMarketProps } from '../../types';
 
 export const Details: React.FC<SelectedMarketProps> = ({
   selectedMarket,
