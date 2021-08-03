@@ -9,6 +9,18 @@ describe('Search user flows', () => {
     cy.url().should('include', '/')
   });
 
+  it('Should show an error if the user types in a faulty url', () => {
+    cy.visit('localhost:3000/marteks')
+    cy.get('h2').contains('Something went wrong, please try again!')
+    cy.url().should('include', 'page-not-found')
+  });
+
+  it('The error can be cleared by clicking the page title', () => {
+    cy.visit('localhost:3000/marteks')
+    cy.get('h1').click()
+    cy.url().should('include', '/')
+  });
+
   it('When a user first visits the site it should display the name of the app', 
   () => {
     cy.get('h1').contains('Freshly Fetched')
@@ -51,7 +63,7 @@ describe('Search user flows', () => {
     .get('button')
     .should('be.disabled')
   });
-
+  
   it('The submit button is disabled if the number isn\'t a whole number', 
   () => {
     cy.get('input[name="zip"]')
@@ -59,19 +71,33 @@ describe('Search user flows', () => {
     .get('button')
     .should('be.disabled')
   });
-
+  
   it('The submit button is disabled if the number isn\'t 5 digits in length',
   () => {
     cy.get('input[name="zip"]')
-      .type('1000')
-      .get('button')
-      .should('be.disabled')
+    .type('1000')
+    .get('button')
+    .should('be.disabled')
+  });
+
+  it('The submit button should be disabled if the user types letter e', () => {
+    cy.get('input[name="zip"]')
+    .type('e')
+    .get('button')
+    .should('be.disabled')
   });
 
   it('The form input should only take numbers', () => {
     cy.get('input[name="zip"]')
       .type('abababa')
       .should('have.value', '')
+  });
+
+  it('It should show an error message if no markets are found at the zip code entered' , () => {
+    cy.get('input[name="zip"]')
+    .type('00000')
+    .get('button').click()
+    cy.get('h2').contains('Sorry, no markets found for that zip code. Please try again!')
   });
 
   it('The form contains a drop down for a mileage filter that has a default value', 
@@ -101,5 +127,13 @@ describe('Search user flows', () => {
       cy.loadList()
       cy.url().should('include', '/markets')  
   });
+
+  it("Should have a loading message after clicking the submit button", () => {
+    cy.get('input[name="zip"]')
+        .type('00001')
+        .get('button').click()
+    cy.wait(500)
+    cy.get("h2").contains("loading")
+  })
 
 });

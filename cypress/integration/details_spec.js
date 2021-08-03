@@ -9,6 +9,11 @@ describe('Details user flows', () => {
     cy.url().should('include', '/1000006')
   });
 
+  it.only('Should show an error if id is invalid', () => {
+    cy.visit('localhost:3000/markets/00e00000')
+    cy.get('h2').contains('Uh oh, no market available!')
+  });
+
   it('It should display the name of the app', () => {
     cy.get('h1').contains('Freshly Fetched')
   });
@@ -33,10 +38,10 @@ describe('Details user flows', () => {
   });
 
   it('The page should display the market schedule', () => {
-    cy.get('.schedule').contains('Sun ')
+    cy.get('.schedule').contains('Sun')
   });
 
-  it.only('The page should display the market\'s products', () => {
+  it('The page should display the market\'s products', () => {
     cy.get('.list').should('have.length', 4)
      cy.get('.list').contains('Records')
      cy.get('.list').contains('Bikes')
@@ -44,7 +49,7 @@ describe('Details user flows', () => {
      cy.get('.list').contains('Cat food')
   });
 
-  it.only ('The page should have a google maps link', () => {
+  it('The page should have a google maps link', () => {
     cy.get('.location-details').children('a').should('have.attr', 'href').and('includes', 'https://goo.gl/maps/eAZ2jAqNNGey8JTE9')
   });
 
