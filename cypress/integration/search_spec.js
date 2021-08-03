@@ -98,7 +98,8 @@ describe('Search user flows', () => {
     cy.get('body').tab()
       .type('00001').tab().tab()
       .type('{enter}')
-      .url().should('include', '/markets')
+      cy.loadList()
+      cy.url().should('include', '/markets')  
   });
 
 });

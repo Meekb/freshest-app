@@ -36,19 +36,6 @@ describe('List user flows', () => {
       .contains('ASHville Downtown Market')
   });
 
-  it('Each market should have a distance', () => {
-    cy.get('article[id="1000006"]')
-      .contains('6.6 miles away')
-      .get('article[id="1000066"]')
-      .contains('16.6 miles away')
-      .get('article[id="1000666"]')
-      .contains('26.6 miles away')
-      .get('article[id="1006666"]')
-      .contains('36.6 miles away')
-      .get('article[id="1066666"]')
-      .contains('46.6 miles away')
-  });
-
   // it('Each market should have a schedule', () => {
   //   cy.get('article[id="1000006"]')
   //     .contains('Sun: 8:30 AM-12:00 PM')
