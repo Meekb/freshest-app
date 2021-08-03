@@ -43,11 +43,14 @@ h1:hover {
 .loading-icon {
   height: 3em;
   width: 3em;
+  z-index: 2;
+  position: absolute;
+  top: 8.5em;
 }
 
 .loading-container {
   display: flex;
   justify-content: center;
-  height: 5em;
+  height: 0;
   width: 100%;
 }
