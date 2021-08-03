@@ -6,22 +6,23 @@
 
 main {
   width: 100vw;
-  min-height: 100vh;
+  min-height: 90vh;
   font-family: 'Montserrat', sans-serif;
   box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 }
 
 html {
   min-height: 100vh;
-  background-color: #41623e;
+  background: #41623e url('../../images/background-veggies.png') no-repeat fixed
+    center;
 }
 
 header {
   background-color: #41623e;
+  border-bottom: 4px solid #4f784c;
   position: sticky;
+  top: 0;
+  width: 100%;
   z-index: 1;
   height: 5em;
   display: flex;
@@ -39,13 +40,17 @@ h1:hover {
   border-bottom: 2px solid #fff9e9;
 }
 
-/* --------- MEDIA QUERIES -----------  */
-
-@media screen and (min-width: 620px) {
+.loading-icon {
+  height: 3em;
+  width: 3em;
+  z-index: 2;
+  position: absolute;
+  top: 8.5em;
 }
 
-@media screen and (min-width: 900px) {
-}
-
-@media screen and (min-width: 1200px) {
+.loading-container {
+  display: flex;
+  justify-content: center;
+  height: 0;
+  width: 100%;
 }

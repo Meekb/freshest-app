@@ -1,20 +1,5 @@
-.day-filter-label {
-  font-size: 18px;
-  color: white;
-}
-
-.filter-btn {
-  font-size: 18px;
-  padding: 4px;
-}
-
-/* --------- MEDIA QUERIES -----------  */
-
-@media screen and (min-width: 620px) {
-}
-
-@media screen and (min-width: 900px) {
-}
-
-@media screen and (min-width: 1200px) {
+.filter-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

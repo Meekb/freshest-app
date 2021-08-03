@@ -2,13 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import './Card.css';
 import veggies from '../../images/shelley-pauls.jpg';
-
-interface CardProps {
-  id: number;
-  distance: number;
-  name: string;
-  findSelectedMarket: (marketID: number) => void;
-}
+import { CardProps } from '../../types';
 
 export const Card: React.FC<CardProps> = ({
   id,

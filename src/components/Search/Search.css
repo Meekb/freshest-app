@@ -3,6 +3,13 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-color: rgba(79, 120, 76, 0.8);
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 3em;
+  padding: 1em;
+  padding-top: 2em;
 }
 
 .zip-label {
@@ -27,20 +34,8 @@ select {
   border: 1px solid #4f784c;
 }
 
-.find-btn {
-  margin: 1em;
-  font-family: 'Montserrat', sans-serif;
-  font-size: 1em;
-  padding: 0.5em;
-  background-color: #fff9e9;
-  border: 2px solid #ee922f;
-  border-radius: 3em;
-  text-decoration: none;
-  color: black;
-  cursor: pointer;
-}
-
-.find-btn:hover {
+.find-btn:hover,
+.filter-btn:hover {
   background-color: #ee922f;
   border: 2px solid #fff9e9;
 }
@@ -62,10 +57,4 @@ select {
   select {
     width: 6em;
   }
-}
-
-@media screen and (min-width: 900px) {
-}
-
-@media screen and (min-width: 1200px) {
 }
