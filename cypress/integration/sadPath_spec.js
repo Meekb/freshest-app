@@ -12,10 +12,11 @@ describe('List user flow sad paths', () => {
       .get('input[name="zip"]').type('00001')
       .get('select').select('50')
       .get('button').click()
-      cy.get("h2").contains("Uh Oh! Something went wrong.")
+      cy.get("p").contains("Sorry, no markets found. Please try a different zip or distance!")
   })
 
-  it("Should alert the user with an error if there is a server failure", () => {
+  it.only("Should alert the user with an error if there is a server failure", () => {
+    
     cy.intercept('GET', `https://search.ams.usda.gov/farmersmarkets/v0/data.svc/'zipSearch?zip=00001`, 
       { statusCode: 500, 
       body: {
@@ -27,7 +28,7 @@ describe('List user flow sad paths', () => {
     .get('input[name="zip"]').type('00001')
     .get('select').select('50')
     .get('button').click()
-    cy.get('h2').contains('Server Error')
+    cy.get('p').contains('Our Servers are down, please try again.')
   })
 
 })

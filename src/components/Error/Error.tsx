@@ -6,13 +6,13 @@ import { ErrorProps } from '../../types';
 export const Error: React.FC<ErrorProps> = ({ errorCode }) => {
   return (
     <div>
+      {errorCode === '500' && (
+        <h2 className='error-msg'>"Our Servers are down, please try again."</h2>
+      )}
       {(errorCode === 'fake404' || errorCode === 'fakeDetails404') && (
         <p className='fake-404-message'>
           Sorry, no markets found. Please try a different zip or distance!
         </p>
-      )}
-      {errorCode === '500' && (
-        <h2 className='error-msg'>"Our Servers are down, please try again."</h2>
       )}
       {errorCode === 'page not found' && (
         <div className='page-not-found'>

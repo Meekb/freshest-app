@@ -86,7 +86,7 @@ export const App: React.FC = () => {
             <Error errorCode={errorCode} />
           </>
         )}
-
+        {errorCode !== 'fake404' && <Error errorCode={errorCode} />}
         {!errorCode?.length && (
           <Switch>
             <Route

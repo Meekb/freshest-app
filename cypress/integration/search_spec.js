@@ -11,7 +11,7 @@ describe('Search user flows', () => {
 
   it('Should show an error if the user types in a faulty url', () => {
     cy.visit('localhost:3000/marteks')
-    cy.get('h2').contains('Something went wrong, please try again!')
+    cy.get('h2').contains('Page not found, do you want to go home?')
     cy.url().should('include', 'page-not-found')
   });
 
@@ -97,7 +97,7 @@ describe('Search user flows', () => {
     cy.get('input[name="zip"]')
     .type('00000')
     .get('button').click()
-    cy.get('h2').contains('Sorry, no markets found for that zip code. Please try again!')
+    cy.get('p').contains('Sorry, no markets found. Please try a different zip or distance!')
   });
 
   it('The form contains a drop down for a mileage filter that has a default value', 
@@ -113,13 +113,6 @@ describe('Search user flows', () => {
       .should('have.value', '25')
   });
 
-  it('The submit button routes the user to the List component', () => {
-    cy.get('input[name="zip"]')
-      .type('00001')
-      .get('button').click()
-      .url().should('include', '/markets')
-  });
-
   it('The homepage can be fully navigated using tab', () => {
     cy.get('body').tab()
       .type('00001').tab().tab()
@@ -127,13 +120,5 @@ describe('Search user flows', () => {
       cy.loadList()
       cy.url().should('include', '/markets')  
   });
-
-  // it("Should have a loading message after clicking the submit button", () => {
-  //   cy.get('input[name="zip"]')
-  //       .type('00001')
-  //       .get('button').click()
-  //   cy.wait(500)
-  //   cy.get("h2").contains("loading")
-  // })
 
 });
