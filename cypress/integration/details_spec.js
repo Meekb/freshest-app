@@ -9,9 +9,9 @@ describe('Details user flows', () => {
     cy.url().should('include', '/1000006')
   });
 
-  it.only('Should show an error if id is invalid', () => {
+  it('Should show an error if id is invalid', () => {
     cy.visit('localhost:3000/markets/00e00000')
-    cy.get('h2').contains('Uh oh, no market available!')
+    cy.get('h2').contains('Something went wrong, please try again!')
   });
 
   it('It should display the name of the app', () => {
@@ -34,7 +34,7 @@ describe('Details user flows', () => {
   });
 
   it('The page should display the market address', () => {
-    cy.get('.address').contains('6666 NW 66th Street')
+    cy.get('.location-details').contains('6666 NW 66th Street')
   });
 
   it('The page should display the market schedule', () => {

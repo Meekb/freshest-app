@@ -36,17 +36,19 @@ describe('List user flows', () => {
       .contains('ASHville Downtown Market')
   });
 
+  it('Should have a filter by day drop down menu', () => {
+    cy.get('select').should('have.value', 'Any')
+  })
+
+  it('Should allow user to select a day', () => {
+    cy.get('select').select('Wed')
+      .should('have.value', 'Wed')
+  });
+
   it('A user should be able to click a market card and be taken to a details page', 
   () => {
     cy.get('article[id="1000006"]').click()
       .url().should('include', '/1000006')
-  });
-
-  it("Should have a loading message after clicking a market", () => {
-    cy.get('#1000006')
-      .click()
-    cy.wait(500)
-    cy.get("h2").contains("loading")
   });
 
 });
