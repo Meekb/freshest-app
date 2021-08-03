@@ -128,12 +128,12 @@ describe('Search user flows', () => {
       cy.url().should('include', '/markets')  
   });
 
-  it("Should have a loading message after clicking the submit button", () => {
-    cy.get('input[name="zip"]')
-        .type('00001')
-        .get('button').click()
-    cy.wait(500)
-    cy.get("h2").contains("loading")
-  })
+  // it("Should have a loading message after clicking the submit button", () => {
+  //   cy.get('input[name="zip"]')
+  //       .type('00001')
+  //       .get('button').click()
+  //   cy.wait(500)
+  //   cy.get("h2").contains("loading")
+  // })
 
 });
