@@ -2,6 +2,7 @@
   "testFiles": [
     "search_spec.js",
     "list_spec.js",
-    "details_spec.js"
+    "details_spec.js",
+    "sadPath_spec.js"
   ]
 }

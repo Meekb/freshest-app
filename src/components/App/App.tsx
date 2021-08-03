@@ -35,6 +35,7 @@ export const App: React.FC = () => {
       history.push('/markets');
     } catch (error) {
       setErrorCode(error.message);
+      setLoading(false)
     }
   };
 
@@ -52,6 +53,7 @@ export const App: React.FC = () => {
       setLoading(false);
     } catch (error) {
       setErrorCode(error.message);
+      setLoading(false)
     }
   };
 
@@ -84,7 +86,7 @@ export const App: React.FC = () => {
             <Error errorCode={errorCode} />
           </>
         )}
-
+        {errorCode !== 'fake404' && <Error errorCode={errorCode} />}
         {!errorCode?.length && (
           <Switch>
             <Route
